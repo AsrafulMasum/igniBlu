@@ -1,9 +1,10 @@
-import { FiUsers } from "react-icons/fi";
 import UsersAreaChart from "./UsersAreaChart";
 import SellingLineChart from "./SellingLineChart";
 import StudentsBarChart from "./StudentsBarChart";
 import { useStatisticsQuery } from "../../../redux/features/statisticsApi";
 import { useState } from "react";
+import { PiCarProfile, PiUser } from "react-icons/pi";
+import { GiMicrochip } from "react-icons/gi";
 
 function DashboardHome() {
   const [userYear, setUserYear] = useState("");
@@ -15,30 +16,25 @@ function DashboardHome() {
 
   const statistics = [
     {
-      title: "Total Users",
-      amount: overView?.totalUsers,
-      icon: <FiUsers className="text-2xl text-[#EEEEEE]" />,
-    },
-    {
-      title: "Total Sold",
-      amount: `$${overView?.totalSold?.toLocaleString()}`,
-      icon: <FiUsers className="text-2xl text-[#EEEEEE]" />,
-    },
-    {
-      title: "Total Earnings",
-      amount: `$${overView?.totalEarning?.toLocaleString()}`,
-      icon: <FiUsers className="text-2xl text-[#EEEEEE]" />,
-    },
-    {
-      title: "Total Orders",
+      title: "Total Devices",
       amount: overView?.totalOrder,
-      icon: <FiUsers className="text-2xl text-[#EEEEEE]" />,
+      icon: <GiMicrochip className="text-2xl text-[#EEEEEE]" />,
+    },
+    {
+      title: "Total Drivers",
+      amount: overView?.totalUsers,
+      icon: <PiUser className="text-2xl text-[#EEEEEE]" />,
+    },
+    {
+      title: "Total Vehicles",
+      amount: `${overView?.totalSold?.toLocaleString()}`,
+      icon: <PiCarProfile className="text-2xl text-[#EEEEEE]" />,
     },
   ];
 
   return (
     <div className="flex flex-col bg-[#121212]">
-      <div className="grid grid-cols-4 gap-2 max-h-[150px] mb-2">
+      <div className="grid grid-cols-3 gap-2 max-h-[150px] mb-2">
         {statistics.map(({ title, amount, icon }) => (
           <div key={title} className="rounded-lg py-4 px-5 gap-4 bg-green">
             <div className="flex justify-start items-start gap-4 mb-4">

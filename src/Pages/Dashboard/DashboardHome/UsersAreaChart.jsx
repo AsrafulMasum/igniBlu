@@ -15,11 +15,11 @@ const CustomLegend = () => {
     <div className="flex gap-2 2xl:gap-4 text-sm text-[#EEEEEE]">
       <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#0F78FF] rounded-sm " />
-        Users
+        Devices
       </div>
       <div className="flex items-center gap-1 whitespace-nowrap">
-        <div className="w-3 h-3 bg-[#1976D2] rounded-sm " />
-        Subscribed Users
+        <div className="w-3 h-3 bg-[#D61E40] rounded-sm " />
+        Active Devices
       </div>
     </div>
   );
@@ -43,7 +43,7 @@ const UsersAreaChart = ({setUserYear, userStats}) => {
           marginBottom: "25px",
         }}
       >
-        <h3 className="text-xl font-medium text-[#EEEEEE]">User Statistics</h3>
+        <h3 className="text-xl font-medium text-[#EEEEEE]">Devices Statistics</h3>
         <div className="flex items-center gap-6">
           <CustomLegend />
           <ConfigProvider
@@ -73,8 +73,8 @@ const UsersAreaChart = ({setUserYear, userStats}) => {
               <stop offset="100%" stopColor="#0F78FF" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="colorSubscribed" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#1976D2" stopOpacity={1} />
-              <stop offset="100%" stopColor="#1976D2" stopOpacity={0} />
+              <stop offset="0%" stopColor="#D61E40" stopOpacity={1} />
+              <stop offset="100%" stopColor="#D61E40" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid horizontal vertical={false} />
@@ -106,7 +106,7 @@ const UsersAreaChart = ({setUserYear, userStats}) => {
             connectNulls
             type="monotone"
             dataKey="subscriber"
-            stroke="#1976D2"
+            stroke="#D61E40"
             fill="url(#colorSubscribed)"
             name="Subscribed Users"
           />
