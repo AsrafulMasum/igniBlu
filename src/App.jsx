@@ -34,6 +34,7 @@ import ClassSchedule from "./Pages/Dashboard/ClassSchedule";
 import Coupon from "./Pages/Dashboard/Coupon";
 import Topics from "./Pages/Dashboard/Topics";
 import Support from "./Pages/Dashboard/Support";
+import DeviceList from "./Pages/Dashboard/DeviceList";
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
             }
           >
             <Route path="/" element={<DashboardHome />} />
-            <Route path="/student-lists" element={<StudentLists />} />
+            <Route path="/device-lists" element={<DeviceList />} />
             <Route path="/user-lists" element={<UserLists />} />
 
             <Route path="/sellings-details" element={<SellingsDetails />} />
@@ -72,18 +73,12 @@ function App() {
             <Route path="/tutorials" element={<Tutorials />} />
             <Route path="/classSchedule" element={<ClassSchedule />} />
             <Route path="/settings/about-us" element={<AboutUs />} />
-            <Route path="/make-admin" element={<MakeAdmin />} />
             <Route path="/admin-profile" element={<AdminProfile />} />
             <Route path="/notification" element={<Notification />} />
 
             <Route
               path="/setting-change-password"
               element={<ChangePassword />}
-            />
-            <Route path="/settings/faq" element={<FAQ />} />
-            <Route
-              path="/settings/privacy-policy"
-              element={<PrivacyPolicy />}
             />
             <Route path="/settings/terms-conditions" element={<Terms />} />
             <Route path="/settings/support" element={<Support />} />

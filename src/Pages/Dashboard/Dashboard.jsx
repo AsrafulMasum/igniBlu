@@ -76,6 +76,17 @@ const Dashboard = () => {
       ),
     },
     {
+      title: "Device Lists",
+      path: "/device-lists",
+      icon: (pathname) => (
+        <TbUsersGroup
+          className={`text-xl ${
+            pathname === "/device-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+          }`}
+        />
+      ),
+    },
+    {
       title: "Vehicle Lists",
       path: "/student-lists",
       icon: (pathname) => (
