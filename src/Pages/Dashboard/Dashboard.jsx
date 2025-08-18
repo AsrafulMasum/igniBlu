@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import { GiMoneyStack, GiTakeMyMoney } from "react-icons/gi";
+import { GiHomeGarage, GiMicrochip, GiMoneyStack, GiTakeMyMoney } from "react-icons/gi";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoIosNotifications, IoMdPaper } from "react-icons/io";
 import {
@@ -19,12 +19,13 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { GoQuestion } from "react-icons/go";
 import { BsExclamationCircle, BsPersonVideo3 } from "react-icons/bs";
 import { MdOutlineCategory, MdOutlineWatchLater } from "react-icons/md";
-import { PiVideo } from "react-icons/pi";
+import { PiCarProfile, PiVideo } from "react-icons/pi";
 import logo from "../../assets/logoWithName.png";
 import { useProfileQuery } from "../../redux/features/authApi";
 import { imageUrl } from "../../redux/api/baseApi";
 import { useGetNotificationsQuery } from "../../redux/features/notificationApi";
 import { io } from "socket.io-client";
+import { RxActivityLog } from "react-icons/rx";
 
 const { Header, Sider, Content } = Layout;
 
@@ -79,7 +80,7 @@ const Dashboard = () => {
       title: "Device Lists",
       path: "/device-lists",
       icon: (pathname) => (
-        <TbUsersGroup
+        <GiMicrochip
           className={`text-xl ${
             pathname === "/device-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
@@ -101,7 +102,7 @@ const Dashboard = () => {
       title: "Vehicle Lists",
       path: "/student-lists",
       icon: (pathname) => (
-        <TbUsersGroup
+        <PiCarProfile
           className={`text-xl ${
             pathname === "/student-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
@@ -124,7 +125,7 @@ const Dashboard = () => {
       title: "Activity",
       path: "/sellings-details",
       icon: (pathname) => (
-        <LiaHandHoldingUsdSolid
+        <RxActivityLog
           className={`text-xl ${
             pathname === "/sellings-details"
               ? "text-[#EEEEEE]"
@@ -138,7 +139,7 @@ const Dashboard = () => {
       title: "Garage History",
       path: "/products",
       icon: (pathname) => (
-        <IoFootballOutline
+        <GiHomeGarage
           className={`text-xl ${
             pathname === "/products" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}

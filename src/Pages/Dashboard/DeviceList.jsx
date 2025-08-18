@@ -230,6 +230,12 @@ const DeviceList = () => {
       render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
+      title: "Device ID",
+      dataIndex: "deviceId",
+      key: "deviceId",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+    },
+    {
       title: "Registered Date",
       dataIndex: "registeredDate",
       key: "registeredDate",
