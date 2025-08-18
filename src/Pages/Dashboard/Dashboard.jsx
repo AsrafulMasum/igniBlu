@@ -87,6 +87,17 @@ const Dashboard = () => {
       ),
     },
     {
+      title: "User Lists",
+      path: "/user-lists",
+      icon: (pathname) => (
+        <TbUsersGroup
+          className={`text-xl ${
+            pathname === "/user-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+          }`}
+        />
+      ),
+    },
+    {
       title: "Vehicle Lists",
       path: "/student-lists",
       icon: (pathname) => (
@@ -99,11 +110,11 @@ const Dashboard = () => {
     },
     {
       title: "Driver Lists",
-      path: "/user-lists",
+      path: "/driver-lists",
       icon: (pathname) => (
         <TbUsers
           className={`text-xl ${
-            pathname === "/user-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+            pathname === "/driver-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
