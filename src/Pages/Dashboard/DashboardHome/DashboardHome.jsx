@@ -1,7 +1,5 @@
 import UsersAreaChart from "./UsersAreaChart";
 import SellingLineChart from "./SellingLineChart";
-import StudentsBarChart from "./StudentsBarChart";
-import { useStatisticsQuery } from "../../../redux/features/statisticsApi";
 import { useState } from "react";
 import { PiCarProfile, PiUser } from "react-icons/pi";
 import { GiMicrochip } from "react-icons/gi";
@@ -10,10 +8,6 @@ function DashboardHome() {
   const [userYear, setUserYear] = useState("");
   const [sellerYear, setSellerYear] = useState("");
   const [studentYear, setStudentYear] = useState("");
-
-  const { data } = useStatisticsQuery({ userYear, sellerYear, studentYear });
-
-  const overView = data?.data?.overView;
 
   const deviceMonthlyData = [
     { month: "Jan", totalDevice: 50, activeDevice: 40, inactiveDevice: 10 },
