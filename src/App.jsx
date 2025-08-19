@@ -42,6 +42,7 @@ function App() {
             <Route path="/driver-list" element={<DriverList />} />
             <Route path="/activity-list" element={<ActivityList />} />
             <Route path="/garage-history" element={<GarageHistory />} />
+            <Route path="/support" element={<Support />} />
 
             <Route path="/settings/about-us" element={<AboutUs />} />
             <Route path="/admin-profile" element={<AdminProfile />} />
@@ -51,7 +52,6 @@ function App() {
               element={<ChangePassword />}
             />
             <Route path="/settings/terms-conditions" element={<Terms />} />
-            <Route path="/settings/support" element={<Support />} />
           </Route>
 
           <Route path="/login" element={<Login />} />

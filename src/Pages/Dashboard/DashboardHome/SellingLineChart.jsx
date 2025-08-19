@@ -34,24 +34,37 @@ const CustomLegend = () => {
     <div className="flex gap-2 2xl:gap-4 text-sm text-[#EEEEEE]">
       <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#1E90FF] rounded-sm " />
-        Drivers
+        Users
       </div>
-      {/* <div className="flex items-center gap-1 whitespace-nowrap">
-        <div className="w-3 h-3 bg-[#0F78FF] rounded-sm " />
-        Enrollment
-      </div> */}
+      <div className="flex items-center gap-1 whitespace-nowrap">
+        <div className="w-3 h-3 bg-[#126E15] rounded-sm " />
+        Owners
+      </div>
+      <div className="flex items-center gap-1 whitespace-nowrap">
+        <div className="w-3 h-3 bg-[#00B94C] rounded-sm " />
+        Fleet Owners
+      </div>
+      <div className="flex items-center gap-1 whitespace-nowrap">
+        <div className="w-3 h-3 bg-[#00FF08] rounded-sm " />
+        Dealers
+      </div>
+      <div className="flex items-center gap-1 whitespace-nowrap">
+        <div className="w-3 h-3 bg-[#A44D00] rounded-sm " />
+        Driver
+      </div>
+      <div className="flex items-center gap-1 whitespace-nowrap">
+        <div className="w-3 h-3 bg-[#FF7700] rounded-sm " />
+        Mechanic
+      </div>
     </div>
   );
 };
 
-const SellingLineChart = ({setSellerYear, sellingStats}) => {
-  
+const SellingLineChart = ({ setSellerYear, sellingStats }) => {
   return (
     <div className="bg-[#242424] py-6 rounded-xl w-full">
       <div className="flex items-center justify-between px-10 mb-4">
-        <h1 className="text-xl font-medium text-[#EEEEEE]">
-          Drivers Statistics
-        </h1>
+        <h1 className="text-xl font-medium text-[#EEEEEE]">Users Statistics</h1>
         <div className="flex items-center gap-6">
           <CustomLegend />
           <ConfigProvider
@@ -84,18 +97,46 @@ const SellingLineChart = ({setSellerYear, sellingStats}) => {
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="enrollment"
-            name="Enrollment Fees"
+            dataKey="Users"
+            name="Users"
             stroke="#0F78FF"
             activeDot={{ r: 8 }}
           />
-          {/* <Line
+          <Line
             type="monotone"
-            dataKey="count"
-            name="Total Sold"
-            stroke="#1E90FF"
+            dataKey="Owners"
+            name="Owners"
+            stroke="#126E15"
             activeDot={{ r: 8 }}
-          /> */}
+          />
+          <Line
+            type="monotone"
+            dataKey="FleetOwners"
+            name="Fleet Owners"
+            stroke="#00B94C"
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="Dealers"
+            name="Dealers"
+            stroke="#00FF08"
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="Mechanics"
+            name="Mechanics"
+            stroke="#FF7700"
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="Drivers"
+            name="Drivers"
+            stroke="#A44D00"
+            activeDot={{ r: 8 }}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>

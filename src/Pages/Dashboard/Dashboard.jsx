@@ -1,6 +1,11 @@
 import { Layout } from "antd";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import { GiHomeGarage, GiMicrochip, GiMoneyStack, GiTakeMyMoney } from "react-icons/gi";
+import {
+  GiHomeGarage,
+  GiMicrochip,
+  GiMoneyStack,
+  GiTakeMyMoney,
+} from "react-icons/gi";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoIosNotifications, IoMdPaper } from "react-icons/io";
 import {
@@ -127,9 +132,7 @@ const Dashboard = () => {
       icon: (pathname) => (
         <RxActivityLog
           className={`text-xl ${
-            pathname === "/activity-list"
-              ? "text-[#EEEEEE]"
-              : "text-[#A3A3A3]"
+            pathname === "/activity-list" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
@@ -142,6 +145,19 @@ const Dashboard = () => {
         <GiHomeGarage
           className={`text-xl ${
             pathname === "/garage-history" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+          }`}
+        />
+      ),
+    },
+    {
+      title: "Support",
+      path: "/support",
+      icon: (pathname) => (
+        <BiSupport
+          className={`text-xl ${
+            pathname === "/support"
+              ? "text-[#EEEEEE]"
+              : "text-[#A3A3A3]"
           }`}
         />
       ),
@@ -178,19 +194,6 @@ const Dashboard = () => {
             <IoMdPaper
               className={`text-xl ${
                 pathname === "/settings/terms-conditions"
-                  ? "text-[#EEEEEE]"
-                  : "text-[#A3A3A3]"
-              }`}
-            />
-          ),
-        },
-        {
-          title: "Support",
-          path: "/settings/support",
-          icon: (pathname) => (
-            <BiSupport
-              className={`text-xl ${
-                pathname === "/settings/support"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
               }`}
