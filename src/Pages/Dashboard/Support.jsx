@@ -5,6 +5,7 @@ import {
   useGetRulesQuery,
   useUpdateRulesMutation,
 } from "../../redux/features/rulesApi";
+import { theme } from "antd";
 
 const Support = () => {
   const editor = useRef(null);
@@ -25,6 +26,7 @@ const Support = () => {
 
   // Editor config
   const config = {
+    theme: "dark",
     readonly: false,
     placeholder: "Start typings...",
     style: {

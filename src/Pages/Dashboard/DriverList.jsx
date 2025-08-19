@@ -2,213 +2,217 @@ import { useState } from "react";
 import { ConfigProvider, Input, Modal, Select, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
 import { CiLock, CiUnlock } from "react-icons/ci";
-import {
-  useGetUsersQuery,
-  useLockUserMutation,
-} from "../../redux/features/usersApi";
-import toast from "react-hot-toast";
+import { imageUrl } from "../../redux/api/baseApi";
 import moment from "moment";
 
-const data = [
+const driverData = [
   {
     key: 1,
-    deviceName: "Tracker Pro X1",
-    deviceId: "DEV-1001",
-    registeredDate: "2024-01-05",
-    currentVehicleNo: "DHA-1234",
-    previousVehicleNo: "DHA-5678",
+    driverName: "Rahim Uddin",
+    email: "rahim.uddin@example.com",
+    contact: "+8801711001101",
+    drivingLicense: "DLN-202301",
+    assignedCar: "Toyota Corolla",
+    createdAt: "2024-01-05",
     status: "active",
   },
   {
     key: 2,
-    deviceName: "Navigator Max",
-    deviceId: "DEV-1002",
-    registeredDate: "2024-01-10",
-    currentVehicleNo: "CTG-9876",
-    previousVehicleNo: "CTG-1122",
+    driverName: "Karim Hossain",
+    email: "karim.hossain@example.com",
+    contact: "+8801711001102",
+    drivingLicense: "DLN-202302",
+    assignedCar: "Honda Civic",
+    createdAt: "2024-01-10",
     status: "inactive",
   },
   {
     key: 3,
-    deviceName: "FleetGuard",
-    deviceId: "DEV-1003",
-    registeredDate: "2024-02-15",
-    currentVehicleNo: "RAJ-4433",
-    previousVehicleNo: "RAJ-3344",
+    driverName: "Selim Mia",
+    email: "selim.mia@example.com",
+    contact: "+8801711001103",
+    drivingLicense: "DLN-202303",
+    assignedCar: "Nissan X-Trail",
+    createdAt: "2024-02-15",
     status: "active",
   },
   {
     key: 4,
-    deviceName: "TrackMate",
-    deviceId: "DEV-1004",
-    registeredDate: "2024-02-20",
-    currentVehicleNo: "SYL-8899",
-    previousVehicleNo: "SYL-7788",
+    driverName: "Bashir Ahmed",
+    email: "bashir.ahmed@example.com",
+    contact: "+8801711001104",
+    drivingLicense: "DLN-202304",
+    assignedCar: "Mitsubishi Pajero",
+    createdAt: "2024-02-20",
     status: "inactive",
   },
   {
     key: 5,
-    deviceName: "PathFinder",
-    deviceId: "DEV-1005",
-    registeredDate: "2024-03-05",
-    currentVehicleNo: "BAR-6677",
-    previousVehicleNo: "BAR-5566",
+    driverName: "Firoz Alam",
+    email: "firoz.alam@example.com",
+    contact: "+8801711001105",
+    drivingLicense: "DLN-202305",
+    assignedCar: "Hyundai Tucson",
+    createdAt: "2024-03-05",
     status: "active",
   },
   {
     key: 6,
-    deviceName: "SkyTrack",
-    deviceId: "DEV-1006",
-    registeredDate: "2024-03-12",
-    currentVehicleNo: "KHU-2233",
-    previousVehicleNo: "KHU-2211",
+    driverName: "Jamal Uddin",
+    email: "jamal.uddin@example.com",
+    contact: "+8801711001106",
+    drivingLicense: "DLN-202306",
+    assignedCar: "Ford Ranger",
+    createdAt: "2024-03-12",
     status: "inactive",
   },
   {
     key: 7,
-    deviceName: "GeoLocator",
-    deviceId: "DEV-1007",
-    registeredDate: "2024-04-01",
-    currentVehicleNo: "DHA-4444",
-    previousVehicleNo: "DHA-3333",
+    driverName: "Ashikur Rahman",
+    email: "ashikur.rahman@example.com",
+    contact: "+8801711001107",
+    drivingLicense: "DLN-202307",
+    assignedCar: "Mazda CX-5",
+    createdAt: "2024-04-01",
     status: "active",
   },
   {
     key: 8,
-    deviceName: "SmartTrack",
-    deviceId: "DEV-1008",
-    registeredDate: "2024-04-10",
-    currentVehicleNo: "CTG-7777",
-    previousVehicleNo: "CTG-6666",
+    driverName: "Nazmul Hasan",
+    email: "nazmul.hasan@example.com",
+    contact: "+8801711001108",
+    drivingLicense: "DLN-202308",
+    assignedCar: "Kia Sportage",
+    createdAt: "2024-04-10",
     status: "inactive",
   },
   {
     key: 9,
-    deviceName: "Guardian Pro",
-    deviceId: "DEV-1009",
-    registeredDate: "2024-04-25",
-    currentVehicleNo: "RAJ-9999",
-    previousVehicleNo: "RAJ-8888",
+    driverName: "Rasel Karim",
+    email: "rasel.karim@example.com",
+    contact: "+8801711001109",
+    drivingLicense: "DLN-202309",
+    assignedCar: "Chevrolet Tahoe",
+    createdAt: "2024-04-25",
     status: "active",
   },
   {
     key: 10,
-    deviceName: "DriveSecure",
-    deviceId: "DEV-1010",
-    registeredDate: "2024-05-02",
-    currentVehicleNo: "SYL-2222",
-    previousVehicleNo: "SYL-1111",
+    driverName: "Sabbir Khan",
+    email: "sabbir.khan@example.com",
+    contact: "+8801711001110",
+    drivingLicense: "DLN-202310",
+    assignedCar: "BMW X5",
+    createdAt: "2024-05-02",
     status: "inactive",
   },
   {
     key: 11,
-    deviceName: "TrackMaster",
-    deviceId: "DEV-1011",
-    registeredDate: "2024-05-10",
-    currentVehicleNo: "BAR-5555",
-    previousVehicleNo: "BAR-4444",
+    driverName: "Ruhul Amin",
+    email: "ruhul.amin@example.com",
+    contact: "+8801711001111",
+    drivingLicense: "DLN-202311",
+    assignedCar: "Mercedes GLC",
+    createdAt: "2024-05-10",
     status: "active",
   },
   {
     key: 12,
-    deviceName: "AutoLocator",
-    deviceId: "DEV-1012",
-    registeredDate: "2024-05-18",
-    currentVehicleNo: "KHU-8888",
-    previousVehicleNo: "KHU-7777",
+    driverName: "Imran Hossain",
+    email: "imran.hossain@example.com",
+    contact: "+8801711001112",
+    drivingLicense: "DLN-202312",
+    assignedCar: "Audi Q7",
+    createdAt: "2024-05-18",
     status: "inactive",
   },
   {
     key: 13,
-    deviceName: "FleetTracker",
-    deviceId: "DEV-1013",
-    registeredDate: "2024-06-01",
-    currentVehicleNo: "DHA-1212",
-    previousVehicleNo: "DHA-3434",
+    driverName: "Mehedi Hasan",
+    email: "mehedi.hasan@example.com",
+    contact: "+8801711001113",
+    drivingLicense: "DLN-202313",
+    assignedCar: "Toyota Hilux",
+    createdAt: "2024-06-01",
     status: "active",
   },
   {
     key: 14,
-    deviceName: "MapGuardian",
-    deviceId: "DEV-1014",
-    registeredDate: "2024-06-08",
-    currentVehicleNo: "CTG-7878",
-    previousVehicleNo: "CTG-6767",
+    driverName: "Jubayer Khan",
+    email: "jubayer.khan@example.com",
+    contact: "+8801711001114",
+    drivingLicense: "DLN-202314",
+    assignedCar: "Isuzu D-Max",
+    createdAt: "2024-06-08",
     status: "inactive",
   },
   {
     key: 15,
-    deviceName: "RouteFinder",
-    deviceId: "DEV-1015",
-    registeredDate: "2024-06-20",
-    currentVehicleNo: "RAJ-5656",
-    previousVehicleNo: "RAJ-4545",
+    driverName: "Samiul Alam",
+    email: "samiul.alam@example.com",
+    contact: "+8801711001115",
+    drivingLicense: "DLN-202315",
+    assignedCar: "Tesla Model X",
+    createdAt: "2024-06-20",
     status: "active",
   },
   {
     key: 16,
-    deviceName: "SpeedTrack",
-    deviceId: "DEV-1016",
-    registeredDate: "2024-07-02",
-    currentVehicleNo: "SYL-9898",
-    previousVehicleNo: "SYL-8787",
+    driverName: "Tanvir Islam",
+    email: "tanvir.islam@example.com",
+    contact: "+8801711001116",
+    drivingLicense: "DLN-202316",
+    assignedCar: "Land Rover Evoque",
+    createdAt: "2024-07-02",
     status: "inactive",
   },
   {
     key: 17,
-    deviceName: "SecurePath",
-    deviceId: "DEV-1017",
-    registeredDate: "2024-07-10",
-    currentVehicleNo: "BAR-2323",
-    previousVehicleNo: "BAR-2121",
+    driverName: "Omar Faruk",
+    email: "omar.faruk@example.com",
+    contact: "+8801711001117",
+    drivingLicense: "DLN-202317",
+    assignedCar: "Jeep Wrangler",
+    createdAt: "2024-07-10",
     status: "active",
   },
   {
     key: 18,
-    deviceName: "DriveGuard",
-    deviceId: "DEV-1018",
-    registeredDate: "2024-07-15",
-    currentVehicleNo: "KHU-9090",
-    previousVehicleNo: "KHU-8080",
+    driverName: "Raihan Chowdhury",
+    email: "raihan.chowdhury@example.com",
+    contact: "+8801711001118",
+    drivingLicense: "DLN-202318",
+    assignedCar: "Suzuki Vitara",
+    createdAt: "2024-07-15",
     status: "inactive",
   },
   {
     key: 19,
-    deviceName: "Tracker Lite",
-    deviceId: "DEV-1019",
-    registeredDate: "2024-07-28",
-    currentVehicleNo: "DHA-6767",
-    previousVehicleNo: "DHA-5656",
+    driverName: "Arif Mahmud",
+    email: "arif.mahmud@example.com",
+    contact: "+8801711001119",
+    drivingLicense: "DLN-202319",
+    assignedCar: "Peugeot 3008",
+    createdAt: "2024-07-28",
     status: "active",
   },
   {
     key: 20,
-    deviceName: "PathSecure",
-    deviceId: "DEV-1020",
-    registeredDate: "2024-08-05",
-    currentVehicleNo: "CTG-4545",
-    previousVehicleNo: "CTG-3434",
+    driverName: "Monirul Islam",
+    email: "monirul.islam@example.com",
+    contact: "+8801711001120",
+    drivingLicense: "DLN-202320",
+    assignedCar: "Volvo XC60",
+    createdAt: "2024-08-05",
     status: "inactive",
   },
 ];
 
 
-const DeviceList = () => {
+const DriverList = () => {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [lock, setLock] = useState("");
-  const [deviceStatus, setDeviceStatus] = useState("Device Status");
-
-  const deviceStatusOptions = [
-    { value: "Device Status", label: "Device Status" },
-    { value: "Active", label: "Active" },
-    { value: "Inactive", label: "Inactive" },
-  ];
-
-  const statusColorMap = {
-    active: { color: "#52C41A", bg: "#D9F2CD" },
-    inactive: { color: "#FF4D4F", bg: "#FFD8D7" },
-  };
 
   const columns = [
     {
@@ -220,73 +224,44 @@ const DeviceList = () => {
       ),
     },
     {
-      title: "Device Name",
-      dataIndex: "deviceName",
-      key: "deviceName",
+      title: "Driver Name",
+      dataIndex: "driverName",
+      key: "driverName",
       render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
-      title: "Device ID",
-      dataIndex: "deviceId",
-      key: "deviceId",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
       render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
-      title: "Registered Date",
-      dataIndex: "registeredDate",
-      key: "registeredDate",
+      title: "Contact Number",
+      dataIndex: "contact",
+      key: "contact",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+    },
+    {
+      title: "Driving License Number",
+      dataIndex: "drivingLicense",
+      key: "drivingLicense",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+    },
+    {
+      title: "Assigned Car",
+      dataIndex: "assignedCar",
+      key: "assignedCar",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+    },
+    {
+      title: "Start Date",
+      dataIndex: "createdAt",
+      key: "createdAt",
       render: (_, record) => (
         <span style={{ color: "#FDFDFD" }}>
-          {moment(record?.registeredDate).format("YYYY-MM-DD")}
+          {moment(record?.createdAt).format("YYYY-MM-DD")}
         </span>
       ),
-    },
-    {
-      title: "Current Vehicle",
-      dataIndex: "currentVehicleNo",
-      key: "currentVehicleNo",
-      render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>{record?.currentVehicleNo}</span>
-      ),
-    },
-    {
-      title: "Previous Vehicle",
-      dataIndex: "previousVehicleNo",
-      key: "previousVehicleNo",
-      render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>{record?.previousVehicleNo}</span>
-      ),
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (status) => {
-        const currentStyle = statusColorMap[status] || {
-          color: "#595959",
-          bg: "#FAFAFA",
-        };
-
-        return (
-          <p
-            style={{
-              backgroundColor: currentStyle.bg,
-              color: currentStyle.color,
-              fontWeight: 500,
-              borderRadius: 6,
-              fontSize: 13,
-              width: 120,
-              height: 28,
-              lineHeight: "28px",
-              textAlign: "center",
-              margin: 0,
-              textTransform: "capitalize",
-            }}
-          >
-            {status}
-          </p>
-        );
-      },
     },
     {
       title: "Action",
@@ -343,8 +318,6 @@ const DeviceList = () => {
   ];
 
   const handleDelete = async () => {
-    console.log("lock");
-    setLock("");
     // try {
     //   const res = await lockUser({ id: lock });
     //   if (res?.data?.success) {
@@ -360,10 +333,6 @@ const DeviceList = () => {
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
-  };
-
-  const handleDeviceStatus = (value) => {
-    setDeviceStatus(value);
   };
 
   return (
@@ -390,7 +359,7 @@ const DeviceList = () => {
               lineHeight: "24px",
             }}
           >
-            Device Lists
+            Driver Lists
           </h3>
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
@@ -422,31 +391,6 @@ const DeviceList = () => {
                 />
               </ConfigProvider>
             </div>
-
-            <div>
-              <ConfigProvider
-                theme={{
-                  token: {
-                    colorPrimary: "#242424",
-                  },
-                  components: {
-                    Select: {
-                      optionSelectedBg: "#0F78FF",
-                    },
-                  },
-                }}
-              >
-                <Select
-                  value={deviceStatus}
-                  onChange={handleDeviceStatus}
-                  style={{
-                    width: 150,
-                    height: 40,
-                  }}
-                  options={deviceStatusOptions}
-                />
-              </ConfigProvider>
-            </div>
           </div>
         </div>
 
@@ -473,8 +417,8 @@ const DeviceList = () => {
               size="small"
               columns={columns}
               rowKey="_id"
-              dataSource={data}
-              //   loading={isLoading}
+              dataSource={driverData}
+              // loading={isLoading}
               pagination={{
                 total: 20,
                 current: page,
@@ -485,8 +429,6 @@ const DeviceList = () => {
           </ConfigProvider>
         </div>
       </div>
-
-      {/* <UserDetailsModal value={value} setValue={setValue} /> */}
 
       <Modal
         centered
@@ -514,4 +456,4 @@ const DeviceList = () => {
   );
 };
 
-export default DeviceList;
+export default DriverList;

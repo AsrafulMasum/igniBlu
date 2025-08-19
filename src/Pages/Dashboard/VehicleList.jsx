@@ -2,213 +2,217 @@ import { useState } from "react";
 import { ConfigProvider, Input, Modal, Select, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
 import { CiLock, CiUnlock } from "react-icons/ci";
-import {
-  useGetUsersQuery,
-  useLockUserMutation,
-} from "../../redux/features/usersApi";
-import toast from "react-hot-toast";
+import { imageUrl } from "../../redux/api/baseApi";
 import moment from "moment";
 
-const data = [
+const vehicleData = [
   {
     key: 1,
-    deviceName: "Tracker Pro X1",
-    deviceId: "DEV-1001",
-    registeredDate: "2024-01-05",
-    currentVehicleNo: "DHA-1234",
-    previousVehicleNo: "DHA-5678",
+    vehicleName: "Toyota Corolla",
+    vehicleModel: "Corolla Altis",
+    modelYear: "2020",
+    vinNo: "VIN-10001",
+    tagNo: "TAG-2001",
+    assignDriver: "Rahim Uddin",
     status: "active",
   },
   {
     key: 2,
-    deviceName: "Navigator Max",
-    deviceId: "DEV-1002",
-    registeredDate: "2024-01-10",
-    currentVehicleNo: "CTG-9876",
-    previousVehicleNo: "CTG-1122",
+    vehicleName: "Honda Civic",
+    vehicleModel: "Civic Turbo",
+    modelYear: "2021",
+    vinNo: "VIN-10002",
+    tagNo: "TAG-2002",
+    assignDriver: "Karim Hossain",
     status: "inactive",
   },
   {
     key: 3,
-    deviceName: "FleetGuard",
-    deviceId: "DEV-1003",
-    registeredDate: "2024-02-15",
-    currentVehicleNo: "RAJ-4433",
-    previousVehicleNo: "RAJ-3344",
+    vehicleName: "Nissan X-Trail",
+    vehicleModel: "X-Trail 2.5",
+    modelYear: "2019",
+    vinNo: "VIN-10003",
+    tagNo: "TAG-2003",
+    assignDriver: "Selim Mia",
     status: "active",
   },
   {
     key: 4,
-    deviceName: "TrackMate",
-    deviceId: "DEV-1004",
-    registeredDate: "2024-02-20",
-    currentVehicleNo: "SYL-8899",
-    previousVehicleNo: "SYL-7788",
+    vehicleName: "Mitsubishi Pajero",
+    vehicleModel: "Pajero Sport",
+    modelYear: "2018",
+    vinNo: "VIN-10004",
+    tagNo: "TAG-2004",
+    assignDriver: "Bashir Ahmed",
     status: "inactive",
   },
   {
     key: 5,
-    deviceName: "PathFinder",
-    deviceId: "DEV-1005",
-    registeredDate: "2024-03-05",
-    currentVehicleNo: "BAR-6677",
-    previousVehicleNo: "BAR-5566",
+    vehicleName: "Hyundai Tucson",
+    vehicleModel: "Tucson GLS",
+    modelYear: "2022",
+    vinNo: "VIN-10005",
+    tagNo: "TAG-2005",
+    assignDriver: "Firoz Alam",
     status: "active",
   },
   {
     key: 6,
-    deviceName: "SkyTrack",
-    deviceId: "DEV-1006",
-    registeredDate: "2024-03-12",
-    currentVehicleNo: "KHU-2233",
-    previousVehicleNo: "KHU-2211",
+    vehicleName: "Ford Ranger",
+    vehicleModel: "Ranger XLT",
+    modelYear: "2021",
+    vinNo: "VIN-10006",
+    tagNo: "TAG-2006",
+    assignDriver: "Jamal Uddin",
     status: "inactive",
   },
   {
     key: 7,
-    deviceName: "GeoLocator",
-    deviceId: "DEV-1007",
-    registeredDate: "2024-04-01",
-    currentVehicleNo: "DHA-4444",
-    previousVehicleNo: "DHA-3333",
+    vehicleName: "Mazda CX-5",
+    vehicleModel: "CX-5 Touring",
+    modelYear: "2020",
+    vinNo: "VIN-10007",
+    tagNo: "TAG-2007",
+    assignDriver: "Ashikur Rahman",
     status: "active",
   },
   {
     key: 8,
-    deviceName: "SmartTrack",
-    deviceId: "DEV-1008",
-    registeredDate: "2024-04-10",
-    currentVehicleNo: "CTG-7777",
-    previousVehicleNo: "CTG-6666",
+    vehicleName: "Kia Sportage",
+    vehicleModel: "Sportage EX",
+    modelYear: "2019",
+    vinNo: "VIN-10008",
+    tagNo: "TAG-2008",
+    assignDriver: "Nazmul Hasan",
     status: "inactive",
   },
   {
     key: 9,
-    deviceName: "Guardian Pro",
-    deviceId: "DEV-1009",
-    registeredDate: "2024-04-25",
-    currentVehicleNo: "RAJ-9999",
-    previousVehicleNo: "RAJ-8888",
+    vehicleName: "Chevrolet Tahoe",
+    vehicleModel: "Tahoe LT",
+    modelYear: "2022",
+    vinNo: "VIN-10009",
+    tagNo: "TAG-2009",
+    assignDriver: "Rasel Karim",
     status: "active",
   },
   {
     key: 10,
-    deviceName: "DriveSecure",
-    deviceId: "DEV-1010",
-    registeredDate: "2024-05-02",
-    currentVehicleNo: "SYL-2222",
-    previousVehicleNo: "SYL-1111",
+    vehicleName: "BMW X5",
+    vehicleModel: "X5 xDrive40i",
+    modelYear: "2021",
+    vinNo: "VIN-10010",
+    tagNo: "TAG-2010",
+    assignDriver: "Sabbir Khan",
     status: "inactive",
   },
   {
     key: 11,
-    deviceName: "TrackMaster",
-    deviceId: "DEV-1011",
-    registeredDate: "2024-05-10",
-    currentVehicleNo: "BAR-5555",
-    previousVehicleNo: "BAR-4444",
+    vehicleName: "Mercedes GLC",
+    vehicleModel: "GLC 300",
+    modelYear: "2020",
+    vinNo: "VIN-10011",
+    tagNo: "TAG-2011",
+    assignDriver: "Ruhul Amin",
     status: "active",
   },
   {
     key: 12,
-    deviceName: "AutoLocator",
-    deviceId: "DEV-1012",
-    registeredDate: "2024-05-18",
-    currentVehicleNo: "KHU-8888",
-    previousVehicleNo: "KHU-7777",
+    vehicleName: "Audi Q7",
+    vehicleModel: "Q7 Premium",
+    modelYear: "2022",
+    vinNo: "VIN-10012",
+    tagNo: "TAG-2012",
+    assignDriver: "Imran Hossain",
     status: "inactive",
   },
   {
     key: 13,
-    deviceName: "FleetTracker",
-    deviceId: "DEV-1013",
-    registeredDate: "2024-06-01",
-    currentVehicleNo: "DHA-1212",
-    previousVehicleNo: "DHA-3434",
+    vehicleName: "Toyota Hilux",
+    vehicleModel: "Hilux Revo",
+    modelYear: "2019",
+    vinNo: "VIN-10013",
+    tagNo: "TAG-2013",
+    assignDriver: "Mehedi Hasan",
     status: "active",
   },
   {
     key: 14,
-    deviceName: "MapGuardian",
-    deviceId: "DEV-1014",
-    registeredDate: "2024-06-08",
-    currentVehicleNo: "CTG-7878",
-    previousVehicleNo: "CTG-6767",
+    vehicleName: "Isuzu D-Max",
+    vehicleModel: "D-Max V-Cross",
+    modelYear: "2018",
+    vinNo: "VIN-10014",
+    tagNo: "TAG-2014",
+    assignDriver: "Jubayer Khan",
     status: "inactive",
   },
   {
     key: 15,
-    deviceName: "RouteFinder",
-    deviceId: "DEV-1015",
-    registeredDate: "2024-06-20",
-    currentVehicleNo: "RAJ-5656",
-    previousVehicleNo: "RAJ-4545",
+    vehicleName: "Tesla Model X",
+    vehicleModel: "Model X Long Range",
+    modelYear: "2022",
+    vinNo: "VIN-10015",
+    tagNo: "TAG-2015",
+    assignDriver: "Samiul Alam",
     status: "active",
   },
   {
     key: 16,
-    deviceName: "SpeedTrack",
-    deviceId: "DEV-1016",
-    registeredDate: "2024-07-02",
-    currentVehicleNo: "SYL-9898",
-    previousVehicleNo: "SYL-8787",
+    vehicleName: "Land Rover",
+    vehicleModel: "Range Rover Evoque",
+    modelYear: "2021",
+    vinNo: "VIN-10016",
+    tagNo: "TAG-2016",
+    assignDriver: "Tanvir Islam",
     status: "inactive",
   },
   {
     key: 17,
-    deviceName: "SecurePath",
-    deviceId: "DEV-1017",
-    registeredDate: "2024-07-10",
-    currentVehicleNo: "BAR-2323",
-    previousVehicleNo: "BAR-2121",
+    vehicleName: "Jeep Wrangler",
+    vehicleModel: "Wrangler Rubicon",
+    modelYear: "2020",
+    vinNo: "VIN-10017",
+    tagNo: "TAG-2017",
+    assignDriver: "Omar Faruk",
     status: "active",
   },
   {
     key: 18,
-    deviceName: "DriveGuard",
-    deviceId: "DEV-1018",
-    registeredDate: "2024-07-15",
-    currentVehicleNo: "KHU-9090",
-    previousVehicleNo: "KHU-8080",
+    vehicleName: "Suzuki Vitara",
+    vehicleModel: "Vitara Brezza",
+    modelYear: "2019",
+    vinNo: "VIN-10018",
+    tagNo: "TAG-2018",
+    assignDriver: "Raihan Chowdhury",
     status: "inactive",
   },
   {
     key: 19,
-    deviceName: "Tracker Lite",
-    deviceId: "DEV-1019",
-    registeredDate: "2024-07-28",
-    currentVehicleNo: "DHA-6767",
-    previousVehicleNo: "DHA-5656",
+    vehicleName: "Peugeot 3008",
+    vehicleModel: "3008 GT Line",
+    modelYear: "2021",
+    vinNo: "VIN-10019",
+    tagNo: "TAG-2019",
+    assignDriver: "Arif Mahmud",
     status: "active",
   },
   {
     key: 20,
-    deviceName: "PathSecure",
-    deviceId: "DEV-1020",
-    registeredDate: "2024-08-05",
-    currentVehicleNo: "CTG-4545",
-    previousVehicleNo: "CTG-3434",
+    vehicleName: "Volvo XC60",
+    vehicleModel: "XC60 T5",
+    modelYear: "2020",
+    vinNo: "VIN-10020",
+    tagNo: "TAG-2020",
+    assignDriver: "Monirul Islam",
     status: "inactive",
   },
 ];
 
 
-const DeviceList = () => {
+const VehicleList = () => {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [lock, setLock] = useState("");
-  const [deviceStatus, setDeviceStatus] = useState("Device Status");
-
-  const deviceStatusOptions = [
-    { value: "Device Status", label: "Device Status" },
-    { value: "Active", label: "Active" },
-    { value: "Inactive", label: "Inactive" },
-  ];
-
-  const statusColorMap = {
-    active: { color: "#52C41A", bg: "#D9F2CD" },
-    inactive: { color: "#FF4D4F", bg: "#FFD8D7" },
-  };
 
   const columns = [
     {
@@ -220,73 +224,40 @@ const DeviceList = () => {
       ),
     },
     {
-      title: "Device Name",
-      dataIndex: "deviceName",
-      key: "deviceName",
+      title: "Vehicle Name",
+      dataIndex: "vehicleName",
+      key: "vehicleName",
       render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
-      title: "Device ID",
-      dataIndex: "deviceId",
-      key: "deviceId",
+      title: "Vehicle Model",
+      dataIndex: "vehicleModel",
+      key: "vehicleModel",
       render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
-      title: "Registered Date",
-      dataIndex: "registeredDate",
-      key: "registeredDate",
-      render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>
-          {moment(record?.registeredDate).format("YYYY-MM-DD")}
-        </span>
-      ),
+      title: "Model Year",
+      dataIndex: "modelYear",
+      key: "modelYear",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
-      title: "Current Vehicle",
-      dataIndex: "currentVehicleNo",
-      key: "currentVehicleNo",
-      render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>{record?.currentVehicleNo}</span>
-      ),
+      title: "VIN No.",
+      dataIndex: "vinNo",
+      key: "vinNo",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
-      title: "Previous Vehicle",
-      dataIndex: "previousVehicleNo",
-      key: "previousVehicleNo",
-      render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>{record?.previousVehicleNo}</span>
-      ),
+      title: "Tag No.",
+      dataIndex: "tagNo",
+      key: "tagNo",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (status) => {
-        const currentStyle = statusColorMap[status] || {
-          color: "#595959",
-          bg: "#FAFAFA",
-        };
-
-        return (
-          <p
-            style={{
-              backgroundColor: currentStyle.bg,
-              color: currentStyle.color,
-              fontWeight: 500,
-              borderRadius: 6,
-              fontSize: 13,
-              width: 120,
-              height: 28,
-              lineHeight: "28px",
-              textAlign: "center",
-              margin: 0,
-              textTransform: "capitalize",
-            }}
-          >
-            {status}
-          </p>
-        );
-      },
+      title: "Assign Driver",
+      dataIndex: "assignDriver",
+      key: "assignDriver",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
       title: "Action",
@@ -343,8 +314,6 @@ const DeviceList = () => {
   ];
 
   const handleDelete = async () => {
-    console.log("lock");
-    setLock("");
     // try {
     //   const res = await lockUser({ id: lock });
     //   if (res?.data?.success) {
@@ -360,10 +329,6 @@ const DeviceList = () => {
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
-  };
-
-  const handleDeviceStatus = (value) => {
-    setDeviceStatus(value);
   };
 
   return (
@@ -390,7 +355,7 @@ const DeviceList = () => {
               lineHeight: "24px",
             }}
           >
-            Device Lists
+            Vehicle Lists
           </h3>
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
@@ -422,31 +387,6 @@ const DeviceList = () => {
                 />
               </ConfigProvider>
             </div>
-
-            <div>
-              <ConfigProvider
-                theme={{
-                  token: {
-                    colorPrimary: "#242424",
-                  },
-                  components: {
-                    Select: {
-                      optionSelectedBg: "#0F78FF",
-                    },
-                  },
-                }}
-              >
-                <Select
-                  value={deviceStatus}
-                  onChange={handleDeviceStatus}
-                  style={{
-                    width: 150,
-                    height: 40,
-                  }}
-                  options={deviceStatusOptions}
-                />
-              </ConfigProvider>
-            </div>
           </div>
         </div>
 
@@ -473,8 +413,8 @@ const DeviceList = () => {
               size="small"
               columns={columns}
               rowKey="_id"
-              dataSource={data}
-              //   loading={isLoading}
+              dataSource={vehicleData}
+              // loading={isLoading}
               pagination={{
                 total: 20,
                 current: page,
@@ -485,8 +425,6 @@ const DeviceList = () => {
           </ConfigProvider>
         </div>
       </div>
-
-      {/* <UserDetailsModal value={value} setValue={setValue} /> */}
 
       <Modal
         centered
@@ -514,4 +452,4 @@ const DeviceList = () => {
   );
 };
 
-export default DeviceList;
+export default VehicleList;

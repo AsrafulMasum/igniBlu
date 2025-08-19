@@ -143,12 +143,6 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   background: transparent !important;
 }
 
-.jodit-toolbar__box:not(:empty):not(:empty) {
-  background: #d6d6d6 !important;
-  margin: 7px;
-  padding: 5px;
-  border-radius: 10px;
-}
 
 :where(.css-dev-only-do-not-override-djtmh8).ant-tabs .ant-tabs-tab {
   background: #d29e3b;
@@ -189,3 +183,4 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
 :where(.css-dev-only-do-not-override-1vjf2v5).ant-layout {
   background: #000000 !important;
 }
+

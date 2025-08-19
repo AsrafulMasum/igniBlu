@@ -100,22 +100,22 @@ const Dashboard = () => {
     },
     {
       title: "Vehicle Lists",
-      path: "/student-lists",
+      path: "/vehicle-lists",
       icon: (pathname) => (
         <PiCarProfile
           className={`text-xl ${
-            pathname === "/student-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+            pathname === "/vehicle-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
     },
     {
       title: "Driver Lists",
-      path: "/driver-lists",
+      path: "/driver-list",
       icon: (pathname) => (
         <TbUsers
           className={`text-xl ${
-            pathname === "/driver-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+            pathname === "/driver-list" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
@@ -123,11 +123,11 @@ const Dashboard = () => {
 
     {
       title: "Activity",
-      path: "/sellings-details",
+      path: "/activity-list",
       icon: (pathname) => (
         <RxActivityLog
           className={`text-xl ${
-            pathname === "/sellings-details"
+            pathname === "/activity-list"
               ? "text-[#EEEEEE]"
               : "text-[#A3A3A3]"
           }`}
@@ -137,11 +137,11 @@ const Dashboard = () => {
 
     {
       title: "Garage History",
-      path: "/products",
+      path: "/garage-history",
       icon: (pathname) => (
         <GiHomeGarage
           className={`text-xl ${
-            pathname === "/products" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+            pathname === "/garage-history" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),

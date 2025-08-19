@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import toast from "react-hot-toast";
-import { useGetRulesQuery, useUpdateRulesMutation } from "../../redux/features/rulesApi";
+import {
+  useGetRulesQuery,
+  useUpdateRulesMutation,
+} from "../../redux/features/rulesApi";
 
 const Terms = () => {
   const editor = useRef(null);
@@ -22,6 +25,7 @@ const Terms = () => {
 
   // Editor config
   const config = {
+    theme: "dark",
     readonly: false,
     placeholder: "Start typings...",
     style: {

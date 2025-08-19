@@ -7,34 +7,19 @@ import Login from "./Pages/Auth/Login";
 import UpdatePassword from "./Pages/Auth/UpdatePassword";
 import NotFound from "./404";
 import PrivateRoute from "./routes/PrivateRoute";
-
-import MakeAdmin from "./Pages/Dashboard/MakeAdmin";
 import ChangePassword from "./Pages/Dashboard/ChangePassword";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import AdminProfile from "./Pages/Dashboard/AdminProfile";
-import Category from "./Pages/Dashboard/Category";
 import AboutUs from "./Pages/Dashboard/AboutUs";
-import FAQ from "./Pages/Dashboard/FAQ";
-import PrivacyPolicy from "./Pages/Dashboard/PrivacyPolicy";
 import Terms from "./Pages/Dashboard/Terms";
 import Notification from "./Pages/Dashboard/Notification";
-import StudentLists from "./Pages/Dashboard/StudentLists";
 import UserLists from "./Pages/Dashboard/UserLists";
-import SellingsDetails from "./Pages/Dashboard/SellingsDetails";
-import EnrollmentFees from "./Pages/Dashboard/EnrollmentFees";
-import Wishlist from "./Pages/Dashboard/Wishlist";
-import InterestedUser from "./Pages/Dashboard/InterestedUser";
-import Products from "./Pages/Dashboard/Products";
-import CoachLists from "./Pages/Dashboard/CoachList";
-import Subscription from "./Pages/Dashboard/Subscription";
-import ManageAdmin from "./Pages/Dashboard/ManageAdmin";
-import Courses from "./Pages/Dashboard/Courses";
-import Tutorials from "./Pages/Dashboard/Tutorials";
-import ClassSchedule from "./Pages/Dashboard/ClassSchedule";
-import Coupon from "./Pages/Dashboard/Coupon";
-import Topics from "./Pages/Dashboard/Topics";
 import Support from "./Pages/Dashboard/Support";
 import DeviceList from "./Pages/Dashboard/DeviceList";
+import VehicleList from "./Pages/Dashboard/VehicleList";
+import DriverList from "./Pages/Dashboard/DriverList";
+import ActivityList from "./Pages/Dashboard/ActivityList";
+import GarageHistory from "./Pages/Dashboard/GarageHistory";
 
 function App() {
   return (
@@ -53,29 +38,14 @@ function App() {
             <Route path="/" element={<DashboardHome />} />
             <Route path="/device-lists" element={<DeviceList />} />
             <Route path="/user-lists" element={<UserLists />} />
+            <Route path="/vehicle-lists" element={<VehicleList />} />
+            <Route path="/driver-list" element={<DriverList />} />
+            <Route path="/activity-list" element={<ActivityList />} />
+            <Route path="/garage-history" element={<GarageHistory />} />
 
-            <Route path="/sellings-details" element={<SellingsDetails />} />
-            <Route path="/enrollment-fees" element={<EnrollmentFees />} />
-
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/interestedUser" element={<InterestedUser />} />
-
-            <Route path="/products" element={<Products />} />
-            <Route path="/addCategory" element={<Category />} />
-            <Route path="/coupon" element={<Coupon />} />
-
-            <Route path="/coach" element={<CoachLists />} />
-            <Route path="/manage-admin" element={<ManageAdmin />} />
-            <Route path="/subscription" element={<Subscription />} />
-
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/topics" element={<Topics />} />
-            <Route path="/tutorials" element={<Tutorials />} />
-            <Route path="/classSchedule" element={<ClassSchedule />} />
             <Route path="/settings/about-us" element={<AboutUs />} />
             <Route path="/admin-profile" element={<AdminProfile />} />
             <Route path="/notification" element={<Notification />} />
-
             <Route
               path="/setting-change-password"
               element={<ChangePassword />}
