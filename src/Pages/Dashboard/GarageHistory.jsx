@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ConfigProvider, Input, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
 import moment from "moment";
+import { useGetGarageHistoryQuery } from "../../redux/features/trackingApi";
 
 const data = [
   {
@@ -227,12 +228,20 @@ const data = [
 ];
 
 const GarageHistory = () => {
+  const limit = 10;
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
+  const { data: garageHistoryData, isLoading } = useGetGarageHistoryQuery({
+    page,
+    limit,
+    searchText,
+  });
+  const garageHistory = garageHistoryData?.data;
+  console.log(garageHistory);
 
   const statusColorMap = {
-    complete: { color: "#52C41A", bg: "#D9F2CD" },
-    inProgress: { color: "#F4891C", bg: "#FFE8CC" },
+    COMPLETED: { color: "#52C41A", bg: "#D9F2CD" },
+    CONFIRMED: { color: "#F4891C", bg: "#FFE8CC" },
   };
 
   const columns = [
@@ -248,19 +257,29 @@ const GarageHistory = () => {
       title: "Car Name",
       dataIndex: "carName",
       key: "carName",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#FDFDFD", textTransform: "capitalize" }}>
+          {record?.serviceId?.Make}
+        </span>
+      ),
     },
     {
       title: "VIN Number",
       dataIndex: "vinNumber",
       key: "vinNumber",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#FDFDFD" }}>{record?.serviceId?.VIN}</span>
+      ),
     },
     {
       title: "Driver Name",
       dataIndex: "driverName",
       key: "driverName",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#FDFDFD", textTransform: "capitalize" }}>
+          {record?.userId?.firstName} {record?.userId?.lastName}
+        </span>
+      ),
     },
     {
       title: "Date",
@@ -268,7 +287,7 @@ const GarageHistory = () => {
       key: "date",
       render: (_, record) => (
         <span style={{ color: "#FDFDFD" }}>
-          {moment(record?.date).format("YYYY-MM-DD")}
+          {moment(record?.confirmedAt).format("YYYY-MM-DD")}
         </span>
       ),
     },
@@ -278,7 +297,7 @@ const GarageHistory = () => {
       key: "startTime",
       render: (_, record) => (
         <span style={{ color: "#FDFDFD" }}>
-          {moment(record?.startTime).format("HH:mm")}
+          {moment(record?.confirmedAt).format("HH:mm")}
         </span>
       ),
     },
@@ -288,7 +307,7 @@ const GarageHistory = () => {
       key: "endTime",
       render: (_, record) => (
         <span style={{ color: "#FDFDFD" }}>
-          {moment(record?.endTime).format("HH:mm")}
+          {record?.endTime ? moment(record?.endTime).format("HH:mm") : "-"}
         </span>
       ),
     },
@@ -296,7 +315,9 @@ const GarageHistory = () => {
       title: "Trip Duration",
       dataIndex: "tripDuration",
       key: "tripDuration",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#FDFDFD" }}>{record?.totalTime} Min</span>
+      ),
     },
     {
       title: "Status",
@@ -321,10 +342,10 @@ const GarageHistory = () => {
               lineHeight: "28px",
               textAlign: "center",
               margin: 0,
-              textTransform: "capitalize",
+              textTransform: "uppercase",
             }}
           >
-            {status}
+            {status === "CONFIRMED" ? "On Trip" : status}
           </p>
         );
       },
@@ -418,12 +439,12 @@ const GarageHistory = () => {
               size="small"
               columns={columns}
               rowKey="_id"
-              dataSource={data}
-              // loading={isLoading}
+              dataSource={garageHistory}
+              loading={isLoading}
               pagination={{
-                total: 20,
+                total: garageHistory?.data?.meta?.total,
                 current: page,
-                pageSize: 12,
+                pageSize: limit,
                 onChange: (page) => setPage(page),
               }}
             />

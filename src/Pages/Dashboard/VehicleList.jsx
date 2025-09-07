@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ConfigProvider, Input, Modal, Select, Table } from "antd";
+import { ConfigProvider, Input, Modal, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
 import { CiLock, CiUnlock } from "react-icons/ci";
 import { imageUrl } from "../../redux/api/baseApi";
@@ -32,9 +32,6 @@ const VehicleList = () => {
       dataIndex: "Make",
       key: "Make",
       render: (_, record) => (
-        // <span style={{ color: "#FDFDFD", textTransform: "capitalize" }}>
-        //   {text}
-        // </span>
         <div
           style={{
             display: "flex",
@@ -59,9 +56,10 @@ const VehicleList = () => {
               fontSize: "#666666",
               fontWeight: "400",
               color: "#FDFDFD",
+              textTransform: "capitalize",
             }}
           >
-            {record?.firstName} {record?.Make}
+            {record?.Make}
           </p>
         </div>
       ),
@@ -97,7 +95,7 @@ const VehicleList = () => {
       dataIndex: "assignDriver",
       key: "assignDriver",
       render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>
+        <span style={{ color: "#FDFDFD", textTransform: "capitalize" }}>
           {record?.assignedUsers
             .map((user) => `${user.firstName} ${user.lastName}`)
             .join(", ")}

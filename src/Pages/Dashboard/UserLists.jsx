@@ -53,6 +53,7 @@ const UserLists = () => {
                 fontSize: "#666666",
                 fontWeight: "400",
                 color: "#FDFDFD",
+                textTransform: "capitalize",
               }}
             >
               {record?.firstName} {record?.lastName}
