@@ -12,10 +12,10 @@ const usersApi = baseApi.injectEndpoints({
     }),
 
     getUsers: builder.query({
-      query: ({ srcText, page, subscriber }) => {
+      query: ({ page, limit }) => {
         return {
           // url: `/user?role=GUEST&searchTerm=${srcText}&page=${page}&subscriber=${subscriber}`,
-          url: `/admin/all-users-driver`,
+          url: `/admin/all-users-driver?limit=${limit}&page=${page}`,
           method: "GET",
         };
       },

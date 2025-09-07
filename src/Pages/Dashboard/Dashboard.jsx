@@ -63,10 +63,10 @@ const Dashboard = () => {
   };
 
   const src =
-    user?.image && user?.image.startsWith("http")
-      ? user?.image
-      : user?.image
-      ? `${imageUrl}${user?.image}`
+    user?.profile && user?.profile.startsWith("http")
+      ? user?.profile
+      : user?.profile
+      ? `${imageUrl}${user?.profile}`
       : "/default-avatar.jpg";
 
   const linkItems = [
@@ -155,9 +155,7 @@ const Dashboard = () => {
       icon: (pathname) => (
         <BiSupport
           className={`text-xl ${
-            pathname === "/support"
-              ? "text-[#EEEEEE]"
-              : "text-[#A3A3A3]"
+            pathname === "/support" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
@@ -401,6 +399,7 @@ const Dashboard = () => {
                 )}
               </div>
             </Link>
+
             <Link
               to={"/admin-profile"}
               style={{
@@ -432,7 +431,7 @@ const Dashboard = () => {
                   lineHeight: "24px",
                 }}
               >
-                {user?.name}
+                {user?.firstName} {user?.lastName}
               </h2>
             </Link>
           </div>
