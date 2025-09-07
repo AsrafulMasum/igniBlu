@@ -11,7 +11,7 @@ const UserLists = () => {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [lock, setLock] = useState("");
-  const { data: userData, isLoading } = useGetUsersQuery({ page, limit });
+  const { data: userData, isLoading } = useGetUsersQuery({ page, limit, searchText });
   const users = userData?.data?.data;
 
   const columns = [
@@ -244,7 +244,7 @@ const UserLists = () => {
               pagination={{
                 total: userData?.data?.data?.meta?.total,
                 current: page,
-                pageSize: 10,
+                pageSize: limit,
                 onChange: (page) => setPage(page),
               }}
             />

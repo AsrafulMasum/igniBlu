@@ -4,6 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { CiLock, CiUnlock } from "react-icons/ci";
 import { imageUrl } from "../../redux/api/baseApi";
 import moment from "moment";
+import { useGetDriversQuery } from "../../redux/features/usersApi";
 
 const driversData = [
   {
@@ -229,9 +230,16 @@ const driversData = [
 ];
 
 const DriverList = () => {
+  const limit = 10;
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [lock, setLock] = useState("");
+  const { data: driverData, isLoading } = useGetDriversQuery({
+    page,
+    limit,
+    searchText,
+  });
+  const drivers = driverData?.data?.data;
 
   const columns = [
     {
@@ -257,10 +265,10 @@ const DriverList = () => {
           >
             <img
               src={
-                record?.image && record?.image.startsWith("http")
-                  ? record?.image
-                  : record?.image
-                  ? `${imageUrl}${record?.image}`
+                record?.profile && record?.profile.startsWith("http")
+                  ? record?.profile
+                  : record?.profile
+                  ? `${imageUrl}${record?.profile}`
                   : "/default-avatar.jpg"
               }
               className="w-10 h-10 object-cover rounded-full"
@@ -274,7 +282,7 @@ const DriverList = () => {
                 color: "#FDFDFD",
               }}
             >
-              {record?.name}
+              {record?.firstName} {record?.lastName}
             </p>
           </div>
         );
@@ -290,7 +298,11 @@ const DriverList = () => {
       title: "Contact Number",
       dataIndex: "contact",
       key: "contact",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => (
+        <span style={{ color: "#FDFDFD" }}>
+          {text ? text : "Not Added Yet"}
+        </span>
+      ),
     },
     {
       title: "Driving License Number",
@@ -328,21 +340,6 @@ const DriverList = () => {
             paddingRight: 10,
           }}
         >
-          {/* <button
-            className="flex justify-center items-center rounded-md"
-            onClick={() => setValue(record)}
-            style={{
-              cursor: "pointer",
-              border: "none",
-              outline: "none",
-              backgroundColor: "#121212",
-              width: "40px",
-              height: "32px",
-            }}
-          >
-            <GoArrowUpRight size={26} className="text-secondary" />
-          </button> */}
-
           <div>
             <button
               className="flex justify-center items-center rounded-md"
@@ -468,12 +465,12 @@ const DriverList = () => {
               size="small"
               columns={columns}
               rowKey="_id"
-              dataSource={driversData}
-              // loading={isLoading}
+              dataSource={drivers}
+              loading={isLoading}
               pagination={{
-                total: 20,
+                total: driverData?.data?.data?.meta?.total,
                 current: page,
-                pageSize: 10,
+                pageSize: limit,
                 onChange: (page) => setPage(page),
               }}
             />

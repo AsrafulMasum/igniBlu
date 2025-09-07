@@ -1,11 +1,11 @@
 import { baseApi } from "../api/baseApi";
 
-const usersApi = baseApi.injectEndpoints({
+const assetsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getDrivers: builder.query({
+    getVehicle: builder.query({
       query: ({ page, limit, searchText }) => {
         return {
-          url: `/admin/all-users-driver?limit=${limit}&page=${page}&search=${searchText}`,
+          url: `/service?limit=${limit}&page=${page}&search=${searchText}`,
           method: "GET",
         };
       },
@@ -79,7 +79,7 @@ const usersApi = baseApi.injectEndpoints({
   }),
 });
 export const {
-  useGetDriversQuery,
+  useGetVehicleQuery,
   useGetUsersQuery,
   useUpdateCoachMutation,
   useGetAdminQuery,
@@ -87,4 +87,4 @@ export const {
   useLockUserMutation,
   useGetCoachQuery,
   useAddAdminMutation,
-} = usersApi;
+} = assetsApi;
