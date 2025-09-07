@@ -14,7 +14,8 @@ const usersApi = baseApi.injectEndpoints({
     getUsers: builder.query({
       query: ({ srcText, page, subscriber }) => {
         return {
-          url: `/user?role=GUEST&searchTerm=${srcText}&page=${page}&subscriber=${subscriber}`,
+          // url: `/user?role=GUEST&searchTerm=${srcText}&page=${page}&subscriber=${subscriber}`,
+          url: `/admin/all-users-driver`,
           method: "GET",
         };
       },

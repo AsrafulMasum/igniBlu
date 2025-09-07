@@ -45,7 +45,7 @@ const AdminProfile = () => {
       if(data?.success) {
         toast.success(data?.message);
         refetch();
-        setProfileEdit(false);
+        setIsEdit(false);
       }
     } catch (err) {
       toast.error(err?.message || "Update failed");
@@ -81,10 +81,10 @@ const AdminProfile = () => {
   };
 
   const src =
-    user?.image && user?.image.startsWith("http")
-      ? user?.image
-      : user?.image
-      ? `${imageUrl}${user?.image}`
+    user?.profile && user?.profile.startsWith("http")
+      ? user?.profile
+      : user?.profile
+      ? `${imageUrl}${user?.profile}`
       : "/default-avatar.jpg";
 
   return (
@@ -125,7 +125,7 @@ const AdminProfile = () => {
         <div>
           <div className="flex justify-center items-center">
             <div
-              className=" w-[75%] bg-action rounded-lg py-5"
+              className=" w-[75%] rounded-lg py-5"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -240,7 +240,7 @@ const AdminProfile = () => {
                 className="flex justify-center items-center"
               >
                 <div
-                  className=" bg-action w-[75%]"
+                  className="w-[75%]"
                   style={{
                     padding: "40px",
                     borderRadius: "10px",
@@ -274,17 +274,17 @@ const AdminProfile = () => {
                           Name
                         </label>
                         <Form.Item
-                          name={"name"}
+                          name={"firstName"}
                           className="col-span-12"
                           style={{ marginBottom: 0 }}
                         >
                           <Input
-                            placeholder={user?.name}
+                            placeholder={user?.firstName}
                             style={{
                               width: "100%",
                               height: "48px",
                               border: "none",
-                              backgroundColor: "#E7F0EF75",
+                              backgroundColor: "#EBEBEB",
                               color: "#757575",
                               paddingLeft: "20px",
                             }}
@@ -314,7 +314,7 @@ const AdminProfile = () => {
                               width: "100%",
                               height: "48px",
                               border: "none",
-                              backgroundColor: "#E7F0EF75",
+                              backgroundColor: "#EBEBEB",
                               color: "#757575",
                               paddingLeft: "20px",
                             }}
@@ -343,7 +343,7 @@ const AdminProfile = () => {
                               width: "100%",
                               height: "48px",
                               border: "none",
-                              backgroundColor: "#E7F0EF75",
+                              backgroundColor: "#EBEBEB",
                               color: "#757575",
                               paddingLeft: "20px",
                             }}
@@ -362,17 +362,17 @@ const AdminProfile = () => {
                           Address
                         </label>
                         <Form.Item
-                          name={"address"}
+                          name={"location"}
                           className="col-span-12"
                           style={{ marginBottom: 0 }}
                         >
                           <Input
-                            placeholder={user?.address}
+                            placeholder={user?.location}
                             style={{
                               width: "100%",
                               height: "48px",
                               border: "none",
-                              backgroundColor: "#E7F0EF75",
+                              backgroundColor: "#EBEBEB",
                               color: "#757575",
                               paddingLeft: "20px",
                             }}
@@ -400,6 +400,7 @@ const AdminProfile = () => {
                         borderRadius: "8px",
                         fontWeight: 500,
                         fontSize: 14,
+                        border: "none",
                       }}
                     >
                       Save Changes
@@ -410,7 +411,7 @@ const AdminProfile = () => {
             ) : (
               <div className=" flex justify-center items-center">
                 <div
-                  className=" bg-action w-[75%] p-[40px] rounded-lg"
+                  className="w-[75%] p-[40px] rounded-lg"
                   style={{
                     display: "flex",
                     justifyContent: "center",
@@ -465,7 +466,7 @@ const AdminProfile = () => {
                             width: "100%",
                             height: "48px",
                             border: "none",
-                            backgroundColor: "#E7F0EF75",
+                            backgroundColor: "#EBEBEB",
                             color: "#757575",
                             paddingLeft: "20px",
                           }}
@@ -510,7 +511,7 @@ const AdminProfile = () => {
                             width: "100%",
                             height: "48px",
                             border: "none",
-                            backgroundColor: "#E7F0EF75",
+                            backgroundColor: "#EBEBEB",
                             color: "#757575",
                             paddingLeft: "20px",
                           }}
@@ -555,7 +556,7 @@ const AdminProfile = () => {
                             width: "100%",
                             height: "48px",
                             border: "none",
-                            backgroundColor: "#E7F0EF75",
+                            backgroundColor: "#EBEBEB",
                             color: "#757575",
                             paddingLeft: "20px",
                           }}
@@ -598,6 +599,7 @@ const AdminProfile = () => {
                               borderRadius: "8px",
                               fontWeight: 500,
                               fontSize: 14,
+                              border: "none",
                             }}
                           >
                             Save Changes

@@ -16,7 +16,7 @@ const Otp = () => {
   const onFinish = async () => {
     const data = {
       email: email,
-      oneTimeCode: otp,
+      oneTimeCode: Number(otp),
     };
 
     try {
@@ -67,7 +67,7 @@ const Otp = () => {
               lineHeight: "24px",
             }}
           >
-            Enter the 4-digit code sent to your email.
+            Enter the 6-digit code sent to your email.
           </p>
 
           <div
@@ -82,7 +82,7 @@ const Otp = () => {
             <OTPInput
               value={otp}
               onChange={setOtp}
-              numInputs={4}
+              numInputs={6}
               inputStyle={{
                 height: "50px",
                 width: "55px",
@@ -135,7 +135,7 @@ const Otp = () => {
                 cursor: "pointer",
               }}
             >
-              Send Again.
+              Resend OTP.
             </p>
           </p>
         </div>

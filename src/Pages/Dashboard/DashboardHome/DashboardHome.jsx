@@ -7,7 +7,6 @@ import { GiMicrochip } from "react-icons/gi";
 function DashboardHome() {
   const [userYear, setUserYear] = useState("");
   const [sellerYear, setSellerYear] = useState("");
-  const [studentYear, setStudentYear] = useState("");
 
   const deviceMonthlyData = [
     { month: "Jan", totalDevice: 50, activeDevice: 40, inactiveDevice: 10 },
@@ -195,10 +194,6 @@ function DashboardHome() {
           setSellerYear={setSellerYear}
           sellingStats={usersData}
         />
-        {/* <StudentsBarChart
-          setStudentYear={setStudentYear}
-          studentStats={data?.data?.studentListByMonthsData}
-        /> */}
       </div>
     </div>
   );
