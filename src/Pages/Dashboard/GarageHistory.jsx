@@ -237,7 +237,7 @@ const GarageHistory = () => {
     searchText,
   });
   const garageHistory = garageHistoryData?.data;
-  console.log(garageHistory);
+  console.log(garageHistoryData);
 
   const statusColorMap = {
     COMPLETED: { color: "#52C41A", bg: "#D9F2CD" },
@@ -442,7 +442,7 @@ const GarageHistory = () => {
               dataSource={garageHistory}
               loading={isLoading}
               pagination={{
-                total: garageHistory?.data?.meta?.total,
+                total: garageHistory?.pagination?.total,
                 current: page,
                 pageSize: limit,
                 onChange: (page) => setPage(page),

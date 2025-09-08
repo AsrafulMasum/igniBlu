@@ -1,21 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import toast from "react-hot-toast";
-import {
-  useGetRulesQuery,
-  useUpdateRulesMutation,
-} from "../../redux/features/rulesApi";
-import { theme } from "antd";
+import { useGetAboutQuery, useUpdateAboutMutation } from "../../redux/features/rulesApi";
 
 const AboutUs = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
   // Fetching data from API
-  const { data, isLoading, isError } = useGetRulesQuery({ type: "about" });
+  const { data, isLoading, isError } = useGetAboutQuery();
 
   // Mutation hook for updating data
-  const [updateRules, { isLoading: isUpdating }] = useUpdateRulesMutation();
+  const [updateRules, { isLoading: isUpdating }] = useUpdateAboutMutation();
 
   // Set content when data is fetched
   useEffect(() => {

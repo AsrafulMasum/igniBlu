@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import toast from "react-hot-toast";
 import {
-  useGetRulesQuery,
-  useUpdateRulesMutation,
+  useGetTermsQuery,
+  useUpdateTermsMutation,
 } from "../../redux/features/rulesApi";
 
 const Terms = () => {
@@ -11,10 +11,10 @@ const Terms = () => {
   const [content, setContent] = useState("");
 
   // Fetching data from API
-  const { data, isLoading, isError } = useGetRulesQuery({ type: "terms" });
+  const { data, isLoading, isError } = useGetTermsQuery();
 
   // Mutation hook for updating data
-  const [updateRules, { isLoading: isUpdating }] = useUpdateRulesMutation();
+  const [updateRules, { isLoading: isUpdating }] = useUpdateTermsMutation();
 
   // Set content when data is fetched
   useEffect(() => {

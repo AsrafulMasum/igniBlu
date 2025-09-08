@@ -3,9 +3,18 @@ import { baseApi } from "../api/baseApi";
 const statisticsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     statistics: builder.query({
-      query: (year) => {
+      query: () => {
         return {
-          url: `/dashboard/analytics?year=${year?.userYear}&sellYear=${year?.sellerYear}&studentYear=${year?.studentYear}`,
+          url: `/booking/total-service`,
+          method: "GET",
+        };
+      },
+    }),
+
+    userStatistics: builder.query({
+      query: (userYear) => {
+        return {
+          url: `/booking/userstate?year=${userYear}`,
           method: "GET",
         };
       },
@@ -13,4 +22,4 @@ const statisticsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useStatisticsQuery } = statisticsApi;
+export const { useStatisticsQuery, useUserStatisticsQuery } = statisticsApi;

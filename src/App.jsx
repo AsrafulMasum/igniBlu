@@ -44,13 +44,13 @@ function App() {
             <Route path="/garage-history" element={<GarageHistory />} />
             <Route path="/support" element={<Support />} />
 
-            <Route path="/settings/about-us" element={<AboutUs />} />
             <Route path="/admin-profile" element={<AdminProfile />} />
             <Route path="/notification" element={<Notification />} />
             <Route
               path="/setting-change-password"
               element={<ChangePassword />}
             />
+            <Route path="/settings/about-us" element={<AboutUs />} />
             <Route path="/settings/terms-conditions" element={<Terms />} />
           </Route>
 

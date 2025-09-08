@@ -2,20 +2,39 @@ import { baseApi } from "../api/baseApi";
 
 const rulesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getRules: builder.query({
-      query: ({ type }) => {
+    getAbout: builder.query({
+      query: () => {
         return {
           method: "GET",
-          url: `/disclaimer?type=${type}`,
+          url: `/rule/about`,
         };
       },
     }),
 
-    updateRules: builder.mutation({
+    updateAbout: builder.mutation({
       query: (data) => {
         return {
-          method: "POST",
-          url: "/disclaimer",
+          method: "PATCH",
+          url: "/rule/about",
+          body: data,
+        };
+      },
+    }),
+
+    getTerms: builder.query({
+      query: () => {
+        return {
+          method: "GET",
+          url: `/rule/terms-and-conditions`,
+        };
+      },
+    }),
+
+    updateTerms: builder.mutation({
+      query: (data) => {
+        return {
+          method: "PATCH",
+          url: "/rule/terms-and-conditions",
           body: data,
         };
       },
@@ -23,4 +42,4 @@ const rulesApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetRulesQuery, useUpdateRulesMutation } = rulesApi;
+export const { useGetAboutQuery, useUpdateAboutMutation, useGetTermsQuery, useUpdateTermsMutation } = rulesApi;

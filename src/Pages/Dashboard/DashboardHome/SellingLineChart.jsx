@@ -1,6 +1,4 @@
-import { ConfigProvider, DatePicker, Dropdown, Select } from "antd";
-import { useState } from "react";
-import { DownOutlined } from "@ant-design/icons";
+import { ConfigProvider, DatePicker } from "antd";
 import {
   CartesianGrid,
   Line,
@@ -11,23 +9,6 @@ import {
   YAxis,
 } from "recharts";
 import { FaChevronDown } from "react-icons/fa";
-
-const { Option } = Select;
-
-const earnChartData = [
-  { name: "Jan", totalSale: 70, profit: 54, enrollment: 64 },
-  { name: "Feb", totalSale: 85, profit: 60, enrollment: 63 },
-  { name: "Mar", totalSale: 90, profit: 75, enrollment: 67 },
-  { name: "Apr", totalSale: 75, profit: 58, enrollment: 68 },
-  { name: "May", totalSale: 100, profit: 80, enrollment: 52 },
-  { name: "Jun", totalSale: 95, profit: 68, enrollment: 75 },
-  { name: "Jul", totalSale: 110, profit: 88, enrollment: 80 },
-  { name: "Aug", totalSale: 120, profit: 60, enrollment: 69 },
-  { name: "Sep", totalSale: 105, profit: 72, enrollment: 42 },
-  { name: "Oct", totalSale: 115, profit: 68, enrollment: 49 },
-  { name: "Nov", totalSale: 98, profit: 77, enrollment: 39 },
-  { name: "Dec", totalSale: 130, profit: 95, enrollment: 70 },
-];
 
 const CustomLegend = () => {
   return (
@@ -40,7 +21,7 @@ const CustomLegend = () => {
         <div className="w-3 h-3 bg-[#126E15] rounded-sm " />
         Owners
       </div>
-      <div className="flex items-center gap-1 whitespace-nowrap">
+      {/* <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#00B94C] rounded-sm " />
         Fleet Owners
       </div>
@@ -51,7 +32,7 @@ const CustomLegend = () => {
       <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#A44D00] rounded-sm " />
         Driver
-      </div>
+      </div> */}
       <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#FF7700] rounded-sm " />
         Mechanic
@@ -60,7 +41,7 @@ const CustomLegend = () => {
   );
 };
 
-const SellingLineChart = ({ setSellerYear, sellingStats }) => {
+const SellingLineChart = ({ setUserYear, sellingStats }) => {
   return (
     <div className="bg-[#242424] py-6 rounded-xl w-full">
       <div className="flex items-center justify-between px-10 mb-4">
@@ -79,7 +60,7 @@ const SellingLineChart = ({ setSellerYear, sellingStats }) => {
               picker="year"
               suffixIcon={<FaChevronDown className="text-gray-500 text-sm" />}
               onChange={(_, dateString) => {
-                setSellerYear(dateString);
+                setUserYear(dateString);
               }}
             />
           </ConfigProvider>
@@ -97,19 +78,19 @@ const SellingLineChart = ({ setSellerYear, sellingStats }) => {
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="Users"
+            dataKey="user"
             name="Users"
             stroke="#0F78FF"
             activeDot={{ r: 8 }}
           />
           <Line
             type="monotone"
-            dataKey="Owners"
+            dataKey="owner"
             name="Owners"
             stroke="#126E15"
             activeDot={{ r: 8 }}
           />
-          <Line
+          {/* <Line
             type="monotone"
             dataKey="FleetOwners"
             name="Fleet Owners"
@@ -129,10 +110,10 @@ const SellingLineChart = ({ setSellerYear, sellingStats }) => {
             name="Mechanics"
             stroke="#FF7700"
             activeDot={{ r: 8 }}
-          />
+          /> */}
           <Line
             type="monotone"
-            dataKey="Drivers"
+            dataKey="driver"
             name="Drivers"
             stroke="#A44D00"
             activeDot={{ r: 8 }}

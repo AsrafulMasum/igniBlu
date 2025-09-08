@@ -1,30 +1,15 @@
 import { Layout } from "antd";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import {
-  GiHomeGarage,
-  GiMicrochip,
-  GiMoneyStack,
-  GiTakeMyMoney,
-} from "react-icons/gi";
+import { GiHomeGarage, GiMicrochip } from "react-icons/gi";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoIosNotifications, IoMdPaper } from "react-icons/io";
-import {
-  TbDiscount,
-  TbPlayFootball,
-  TbUsers,
-  TbUsersGroup,
-} from "react-icons/tb";
+import { TbUsers, TbUsersGroup } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
-import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import { CiLogout, CiSettings } from "react-icons/ci";
-import { IoDocumentLockOutline, IoFootballOutline } from "react-icons/io5";
-import { RiAdminLine, RiUser2Line } from "react-icons/ri";
 import { useEffect, useMemo, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { GoQuestion } from "react-icons/go";
-import { BsExclamationCircle, BsPersonVideo3 } from "react-icons/bs";
-import { MdOutlineCategory, MdOutlineWatchLater } from "react-icons/md";
-import { PiCarProfile, PiVideo } from "react-icons/pi";
+import { BsExclamationCircle } from "react-icons/bs";
+import { PiCarProfile } from "react-icons/pi";
 import logo from "../../assets/logoWithName.png";
 import { useProfileQuery } from "../../redux/features/authApi";
 import { imageUrl } from "../../redux/api/baseApi";
@@ -126,17 +111,17 @@ const Dashboard = () => {
       ),
     },
 
-    {
-      title: "Activity",
-      path: "/activity-list",
-      icon: (pathname) => (
-        <RxActivityLog
-          className={`text-xl ${
-            pathname === "/activity-list" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
+    // {
+    //   title: "Activity",
+    //   path: "/activity-list",
+    //   icon: (pathname) => (
+    //     <RxActivityLog
+    //       className={`text-xl ${
+    //         pathname === "/activity-list" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
 
     {
       title: "Garage History",
