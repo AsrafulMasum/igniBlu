@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import toast from "react-hot-toast";
-import { useGetAboutQuery, useUpdateAboutMutation } from "../../redux/features/rulesApi";
+import {
+  useGetAboutQuery,
+  useUpdateAboutMutation,
+} from "../../redux/features/rulesApi";
 
 const AboutUs = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
   // Fetching data from API
-  const { data, isLoading, isError } = useGetAboutQuery();
+  const { data, isLoading, isError, refetch } = useGetAboutQuery();
 
   // Mutation hook for updating data
   const [updateRules, { isLoading: isUpdating }] = useUpdateAboutMutation();
@@ -47,6 +50,7 @@ const AboutUs = () => {
         content,
       }).unwrap();
       toast.success("Updated successfully!");
+      refetch();
     } catch (err) {
       console.error("Update failed", err);
       toast.error("Failed to update");

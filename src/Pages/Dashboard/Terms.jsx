@@ -11,7 +11,7 @@ const Terms = () => {
   const [content, setContent] = useState("");
 
   // Fetching data from API
-  const { data, isLoading, isError } = useGetTermsQuery();
+  const { data, isLoading, isError, refetch } = useGetTermsQuery();
 
   // Mutation hook for updating data
   const [updateRules, { isLoading: isUpdating }] = useUpdateTermsMutation();
@@ -50,6 +50,7 @@ const Terms = () => {
         content,
       }).unwrap();
       toast.success("Updated successfully!");
+      refetch();
     } catch (err) {
       console.error("Update failed", err);
       toast.error("Failed to update");
