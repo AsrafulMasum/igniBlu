@@ -3,195 +3,25 @@ import { ConfigProvider, Input, Modal, Table, Tooltip } from "antd";
 import { FiSearch } from "react-icons/fi";
 import { LiaReplySolid } from "react-icons/lia";
 import { BsThreeDots } from "react-icons/bs";
-
-const data = [
-  {
-    key: 1,
-    userName: "John Doe",
-    email: "john.doe@example.com",
-    contact: "+880123456789",
-    carName: "Toyota Corolla",
-    vinNumber: "VIN-10001",
-    issue: "The car has a flat tire and needs immediate replacement.",
-  },
-  {
-    key: 2,
-    userName: "Jane Smith",
-    email: "jane.smith@example.com",
-    contact: "+880987654321",
-    carName: "Honda Civic",
-    vinNumber: "VIN-10002",
-    issue: "Battery is not holding charge; needs inspection or replacement.",
-  },
-  {
-    key: 3,
-    userName: "Mike Johnson",
-    email: "mike.johnson@example.com",
-    contact: "+880112233445",
-    carName: "Ford Ranger",
-    vinNumber: "VIN-10003",
-    issue: "Engine is overheating during long drives, check cooling system.",
-  },
-  {
-    key: 4,
-    userName: "Emily Davis",
-    email: "emily.davis@example.com",
-    contact: "+880223344556",
-    carName: "Tesla Model 3",
-    vinNumber: "VIN-10004",
-    issue: "Software update required for the autopilot system.",
-  },
-  {
-    key: 5,
-    userName: "Robert Brown",
-    email: "robert.brown@example.com",
-    contact: "+880334455667",
-    carName: "BMW X5",
-    vinNumber: "VIN-10005",
-    issue: "Brake system malfunction; requires urgent service.",
-  },
-  {
-    key: 6,
-    userName: "Linda Wilson",
-    email: "linda.wilson@example.com",
-    contact: "+880445566778",
-    carName: "Audi A4",
-    vinNumber: "VIN-10006",
-    issue: "Air conditioning is not cooling properly, needs inspection.",
-  },
-  {
-    key: 7,
-    userName: "James Taylor",
-    email: "james.taylor@example.com",
-    contact: "+880556677889",
-    carName: "Mercedes C-Class",
-    vinNumber: "VIN-10007",
-    issue: "Headlight is broken; replacement required before night driving.",
-  },
-  {
-    key: 8,
-    userName: "Patricia Anderson",
-    email: "patricia.anderson@example.com",
-    contact: "+880667788990",
-    carName: "Hyundai Elantra",
-    vinNumber: "VIN-10008",
-    issue: "Tire pressure is low on all tires; check for leaks.",
-  },
-  {
-    key: 9,
-    userName: "William Thomas",
-    email: "william.thomas@example.com",
-    contact: "+880778899001",
-    carName: "Kia Sportage",
-    vinNumber: "VIN-10009",
-    issue: "Engine oil needs replacement and filter change.",
-  },
-  {
-    key: 10,
-    userName: "Barbara Martinez",
-    email: "barbara.martinez@example.com",
-    contact: "+880889900112",
-    carName: "Nissan Altima",
-    vinNumber: "VIN-10010",
-    issue: "Transmission slipping during gear changes; check gearbox.",
-  },
-  {
-    key: 11,
-    userName: "Steven Harris",
-    email: "steven.harris@example.com",
-    contact: "+880990011223",
-    carName: "Chevrolet Malibu",
-    vinNumber: "VIN-10011",
-    issue: "Driver-side window is stuck and won’t roll down.",
-  },
-  {
-    key: 12,
-    userName: "Susan Clark",
-    email: "susan.clark@example.com",
-    contact: "+880101112131",
-    carName: "Volkswagen Golf",
-    vinNumber: "VIN-10012",
-    issue: "Fuel pump is malfunctioning; car stalls at idle.",
-  },
-  {
-    key: 13,
-    userName: "Daniel Lewis",
-    email: "daniel.lewis@example.com",
-    contact: "+880121314151",
-    carName: "Mazda CX-5",
-    vinNumber: "VIN-10013",
-    issue: "Steering wheel vibrates at high speeds; alignment check needed.",
-  },
-  {
-    key: 14,
-    userName: "Karen Walker",
-    email: "karen.walker@example.com",
-    contact: "+880131415161",
-    carName: "Subaru Forester",
-    vinNumber: "VIN-10014",
-    issue: "Head gasket leak causing coolant loss; immediate repair required.",
-  },
-  {
-    key: 15,
-    userName: "Paul Hall",
-    email: "paul.hall@example.com",
-    contact: "+880141516171",
-    carName: "Jeep Wrangler",
-    vinNumber: "VIN-10015",
-    issue: "Suspension makes noise on rough roads; check shocks and springs.",
-  },
-  {
-    key: 16,
-    userName: "Nancy Allen",
-    email: "nancy.allen@example.com",
-    contact: "+880151617181",
-    carName: "Honda Accord",
-    vinNumber: "VIN-10016",
-    issue: "Brake pads are worn out; replacement required soon.",
-  },
-  {
-    key: 17,
-    userName: "Mark Young",
-    email: "mark.young@example.com",
-    contact: "+880161718191",
-    carName: "Toyota Camry",
-    vinNumber: "VIN-10017",
-    issue: "Clutch is slipping; check clutch plate and hydraulic system.",
-  },
-  {
-    key: 18,
-    userName: "Lisa King",
-    email: "lisa.king@example.com",
-    contact: "+880171819202",
-    carName: "Ford Focus",
-    vinNumber: "VIN-10018",
-    issue: "AC compressor makes loud noise; may need replacement.",
-  },
-  {
-    key: 19,
-    userName: "Kevin Scott",
-    email: "kevin.scott@example.com",
-    contact: "+880181920212",
-    carName: "Hyundai Tucson",
-    vinNumber: "VIN-10019",
-    issue: "Battery dies quickly; alternator needs testing.",
-  },
-  {
-    key: 20,
-    userName: "Michelle Green",
-    email: "michelle.green@example.com",
-    contact: "+880192021222",
-    carName: "Kia Optima",
-    vinNumber: "VIN-10020",
-    issue: "Engine produces unusual knocking sound under acceleration.",
-  },
-];
+import {
+  useGetSupportMessagesQuery,
+  useReplySupportMessagesMutation,
+} from "../../redux/features/supportsApi";
+import toast from "react-hot-toast";
 
 const Support = () => {
+  const limit = 12;
   const [page, setPage] = useState(1);
   const [value, setValue] = useState(null);
   const [searchText, setSearchText] = useState("");
-  const [lock, setLock] = useState("");
+  const { data: supportData, isLoading } = useGetSupportMessagesQuery({
+    page,
+    limit,
+    searchText,
+  });
+  const support = supportData?.data;
+  const [replySupportMessages, { isLoading: replyLoading }] =
+    useReplySupportMessagesMutation();
 
   const columns = [
     {
@@ -206,7 +36,11 @@ const Support = () => {
       title: "User Name",
       dataIndex: "userName",
       key: "userName",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#FDFDFD" }}>
+          {record?.userId?.firstName} {record?.userId?.lastName}
+        </span>
+      ),
     },
     {
       title: "Email",
@@ -218,31 +52,39 @@ const Support = () => {
       title: "Contact Number",
       dataIndex: "contact",
       key: "contact",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#FDFDFD" }}>
+          {record?.userId?.contact ? record?.userId?.contact : "Not Added Yet"}
+        </span>
+      ),
     },
     {
       title: "Car Name",
       dataIndex: "carName",
       key: "carName",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#FDFDFD" }}>{record?.serviceId?.Make}</span>
+      ),
     },
     {
       title: "VIN Number",
       dataIndex: "vinNumber",
       key: "vinNumber",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#FDFDFD" }}>{record?.serviceId?.VIN}</span>
+      ),
     },
     {
       title: "Issues",
-      dataIndex: "issue",
-      key: "issue",
+      dataIndex: "message",
+      key: "message",
       render: (text) => {
         const shortText =
-          text.length > 15 ? text.substring(0, 15) + "..." : text;
+          text && text.length > 15 ? text.substring(0, 15) + "..." : text;
         return (
           <span className="text-[#FDFDFD] w-44 flex justify-between items-center">
             {shortText}
-            {text.length > 15 && (
+            {text && text.length > 15 && (
               <Tooltip title={text}>
                 <BsThreeDots className="ml-2 bg-gray-500 h-6 w-6 rounded-sm p-1 cursor-pointer" />
               </Tooltip>
@@ -289,8 +131,25 @@ const Support = () => {
     setSearchText(e.target.value);
   };
 
-  const handleAdd = () => {
-    console.log("first");
+  const handleReply = async (e) => {
+    e.preventDefault();
+    const replyMessage = e.target.replyMessage.value;
+    const payload = {
+      id: value?._id,
+      replyMessage: { replyMessage },
+    };
+
+    try {
+      const res = await replySupportMessages(payload).unwrap();
+      if (res?.success) {
+        toast.success(res?.message);
+        e.target.reset();
+        setValue(null);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to reply. Please try again.");
+    }
   };
 
   return (
@@ -375,12 +234,12 @@ const Support = () => {
               size="small"
               columns={columns}
               rowKey="_id"
-              dataSource={data}
-              // loading={isLoading}
+              dataSource={support}
+              loading={isLoading}
               pagination={{
-                total: 20,
+                total: supportData?.meta?.total,
                 current: page,
-                pageSize: 12,
+                pageSize: limit,
                 onChange: (page) => setPage(page),
               }}
             />
@@ -397,7 +256,8 @@ const Support = () => {
       >
         <div className="p-6">
           <h1 className="text-[20px] font-medium mb-3">Reply A Message</h1>
-          <form onSubmit={handleAdd}>
+          <p className="text-lg font-medium mb-5">{value?.message}</p>
+          <form onSubmit={handleReply}>
             <div style={{ marginBottom: "16px" }}>
               <label style={{ display: "block", marginBottom: "5px" }}>
                 Message
@@ -414,8 +274,7 @@ const Support = () => {
                   width: "100%",
                   resize: "none",
                 }}
-                // value={form.ans}
-                name="ans"
+                name="replyMessage"
               />
             </div>
             <input
@@ -430,7 +289,7 @@ const Support = () => {
                 outline: "none",
                 padding: "10px 20px",
               }}
-              value="Save & change"
+              value={replyLoading ? "Sending..." : "Save & change"}
               type="submit"
             />
           </form>

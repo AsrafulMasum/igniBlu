@@ -28,15 +28,15 @@ const CustomLegend = () => {
       <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#00FF08] rounded-sm " />
         Dealers
-      </div>
+      </div> */}
       <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#A44D00] rounded-sm " />
         Driver
-      </div> */}
-      <div className="flex items-center gap-1 whitespace-nowrap">
+      </div>
+      {/* <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#FF7700] rounded-sm " />
         Mechanic
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -20,59 +20,12 @@ const usersApi = baseApi.injectEndpoints({
       },
     }),
 
-    getCoach: builder.query({
-      query: ({ searchTerm, page }) => {
-        return {
-          url: `/user?role=COUCH&searchTerm=${searchTerm}&page=${page}`,
-          method: "GET",
-        };
-      },
-    }),
-
-    addCoach: builder.mutation({
-      query: (data) => {
-        return {
-          url: "/user?role=COUCH",
-          method: "POST",
-          body: data,
-        };
-      },
-    }),
-
-    updateCoach: builder.mutation({
-      query: (data) => {
-        return {
-          url: "/user?role=COUCH",
-          method: "PATCH",
-          body: data,
-        };
-      },
-    }),
-
-    getAdmin: builder.query({
-      query: ({ searchTerm }) => {
-        return {
-          url: `/user?role=ADMIN&searchTerm=${searchTerm}`,
-          method: "GET",
-        };
-      },
-    }),
-
-    addAdmin: builder.mutation({
-      query: (data) => {
-        return {
-          url: "/user/admin",
-          method: "POST",
-          body: data,
-        };
-      },
-    }),
-
     lockUser: builder.mutation({
-      query: ({ id }) => {
+      query: (payload) => {
         return {
-          url: `/user/${id}`,
-          method: "PATCH",
+          url: `/user/update-status`,
+          method: "POST",
+          body: payload,
         };
       },
     }),
@@ -81,10 +34,5 @@ const usersApi = baseApi.injectEndpoints({
 export const {
   useGetDriversQuery,
   useGetUsersQuery,
-  useUpdateCoachMutation,
-  useGetAdminQuery,
-  useAddCoachMutation,
   useLockUserMutation,
-  useGetCoachQuery,
-  useAddAdminMutation,
 } = usersApi;

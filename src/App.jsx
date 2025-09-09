@@ -12,7 +12,6 @@ import ForgotPassword from "./Pages/Auth/ForgotPassword";
 import AdminProfile from "./Pages/Dashboard/AdminProfile";
 import AboutUs from "./Pages/Dashboard/AboutUs";
 import Terms from "./Pages/Dashboard/Terms";
-import Notification from "./Pages/Dashboard/Notification";
 import UserLists from "./Pages/Dashboard/UserLists";
 import Support from "./Pages/Dashboard/Support";
 import DeviceList from "./Pages/Dashboard/DeviceList";
@@ -45,7 +44,6 @@ function App() {
             <Route path="/support" element={<Support />} />
 
             <Route path="/admin-profile" element={<AdminProfile />} />
-            <Route path="/notification" element={<Notification />} />
             <Route
               path="/setting-change-password"
               element={<ChangePassword />}

@@ -4,19 +4,21 @@ import { FiSearch } from "react-icons/fi";
 import { CiLock, CiUnlock } from "react-icons/ci";
 import { imageUrl } from "../../redux/api/baseApi";
 import moment from "moment";
-import { useGetDriversQuery } from "../../redux/features/usersApi";
+import { useGetDriversQuery, useLockUserMutation } from "../../redux/features/usersApi";
+import toast from "react-hot-toast";
 
 const DriverList = () => {
   const limit = 10;
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
-  const [lock, setLock] = useState("");
-  const { data: driverData, isLoading } = useGetDriversQuery({
+  const [lock, setLock] = useState(null);
+  const { data: driverData, isLoading, refetch } = useGetDriversQuery({
     page,
     limit,
     searchText,
   });
   const drivers = driverData?.data?.data;
+  const [lockUser] = useLockUserMutation();
 
   const columns = [
     {
@@ -126,7 +128,7 @@ const DriverList = () => {
           <div>
             <button
               className="flex justify-center items-center rounded-md"
-              onClick={() => setLock(record?._id)}
+              onClick={() => setLock(record)}
               style={{
                 cursor: "pointer",
                 border: "none",
@@ -149,16 +151,23 @@ const DriverList = () => {
   ];
 
   const handleDelete = async () => {
-    // try {
-    //   const res = await lockUser({ id: lock });
-    //   if (res?.data?.success) {
-    //     refetch();
-    //     setLock("");
-    //     toast.success(res?.data?.message);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const res = await lockUser({
+        userId: lock?._id,
+        status: lock?.status === "active" ? "block" : "active",
+      });
+      if (res?.data?.success) {
+        refetch();
+        setLock(null);
+        toast.success(
+          `User ${
+            lock?.status === "active" ? "blocked" : "activated"
+          } successfully`
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSearchChange = (e) => {
@@ -273,7 +282,8 @@ const DriverList = () => {
             Are you sure!
           </p>
           <p className="pt-4 pb-12 text-center">
-            Do you want to delete this content?
+            Do you want to {lock?.status === "active" ? "block" : "active"} this
+            user?
           </p>
           <button
             onClick={handleDelete}

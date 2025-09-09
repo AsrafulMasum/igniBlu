@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { ConfigProvider, Input, Modal, Table } from "antd";
+import { ConfigProvider, Input, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
-import { CiLock, CiUnlock } from "react-icons/ci";
 import { imageUrl } from "../../redux/api/baseApi";
 import moment from "moment";
 import { useGetVehicleQuery } from "../../redux/features/assetsApi";
@@ -10,7 +9,6 @@ const VehicleList = () => {
   const limit = 10;
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
-  const [lock, setLock] = useState("");
   const { data: vehicleData, isLoading } = useGetVehicleQuery({
     page,
     limit,
@@ -102,72 +100,7 @@ const VehicleList = () => {
         </span>
       ),
     },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
-      render: (_, record) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-
-            paddingRight: 10,
-          }}
-        >
-          {/* <button
-            className="flex justify-center items-center rounded-md"
-            onClick={() => setValue(record)}
-            style={{
-              cursor: "pointer",
-              border: "none",
-              outline: "none",
-              backgroundColor: "#121212",
-              width: "40px",
-              height: "32px",
-            }}
-          >
-            <GoArrowUpRight size={26} className="text-secondary" />
-          </button> */}
-
-          <div>
-            <button
-              className="flex justify-center items-center rounded-md"
-              onClick={() => setLock(record?._id)}
-              style={{
-                cursor: "pointer",
-                border: "none",
-                outline: "none",
-                backgroundColor: "#121212",
-                width: "40px",
-                height: "32px",
-              }}
-            >
-              {record?.status === "active" ? (
-                <CiUnlock size={26} className="text-secondary" />
-              ) : (
-                <CiLock size={26} className="text-[#FF0000]" />
-              )}
-            </button>
-          </div>
-        </div>
-      ),
-    },
   ];
-
-  const handleDelete = async () => {
-    // try {
-    //   const res = await lockUser({ id: lock });
-    //   if (res?.data?.success) {
-    //     refetch();
-    //     setLock("");
-    //     toast.success(res?.data?.message);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
-  };
 
   const handleSearchChange = (e) => {
     e.preventDefault();
@@ -268,29 +201,6 @@ const VehicleList = () => {
           </ConfigProvider>
         </div>
       </div>
-
-      <Modal
-        centered
-        open={lock}
-        onCancel={() => setLock(null)}
-        width={400}
-        footer={false}
-      >
-        <div className="p-6 text-center">
-          <p className="text-[#D93D04] text-center font-semibold">
-            Are you sure!
-          </p>
-          <p className="pt-4 pb-12 text-center">
-            Do you want to delete this content?
-          </p>
-          <button
-            onClick={handleDelete}
-            className="bg-[#0F78FF] py-2 px-5 text-white rounded-md"
-          >
-            Confirm
-          </button>
-        </div>
-      </Modal>
     </div>
   );
 };

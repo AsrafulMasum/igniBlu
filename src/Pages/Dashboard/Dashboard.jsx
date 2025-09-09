@@ -2,20 +2,17 @@ import { Layout } from "antd";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { GiHomeGarage, GiMicrochip } from "react-icons/gi";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { IoIosNotifications, IoMdPaper } from "react-icons/io";
+import { IoMdPaper } from "react-icons/io";
 import { TbUsers, TbUsersGroup } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
 import { CiLogout, CiSettings } from "react-icons/ci";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { BsExclamationCircle } from "react-icons/bs";
 import { PiCarProfile } from "react-icons/pi";
 import logo from "../../assets/logoWithName.png";
 import { useProfileQuery } from "../../redux/features/authApi";
 import { imageUrl } from "../../redux/api/baseApi";
-import { useGetNotificationsQuery } from "../../redux/features/notificationApi";
-import { io } from "socket.io-client";
-import { RxActivityLog } from "react-icons/rx";
 
 const { Header, Sider, Content } = Layout;
 
@@ -25,22 +22,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { data } = useProfileQuery();
   const user = data?.data;
-
-  const { data: notificationData, refetch } = useGetNotificationsQuery();
-  const unreadCount = useMemo(
-    () => notificationData?.data?.unreadCount || 0,
-    [notificationData]
-  );
-
-  const socket = useMemo(() => io(imageUrl), []);
-
-  useEffect(() => {
-    socket.on(`notification::${user?._id}`, (data) => {
-      console.log(data);
-
-      refetch();
-    });
-  }, [socket, user?._id]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -347,44 +328,6 @@ const Dashboard = () => {
               justifyContent: "space-between",
             }}
           >
-            <Link to="/notification">
-              <div
-                style={{
-                  width: 40,
-                  height: 40,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "50%",
-                  position: "relative",
-                }}
-              >
-                <IoIosNotifications className="text-3xl text-[#E6E6E6]" />
-
-                {!(unreadCount === 0) && (
-                  <div
-                    style={{
-                      width: "16px",
-                      height: "16px",
-                      borderRadius: "50%",
-                      background: "#0F78FF",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      color: "#121212",
-                      position: "absolute",
-                      top: 2,
-                      right: 4,
-                      fontWeight: "500",
-                      fontSize: "12px",
-                    }}
-                  >
-                    {unreadCount}
-                  </div>
-                )}
-              </div>
-            </Link>
-
             <Link
               to={"/admin-profile"}
               style={{

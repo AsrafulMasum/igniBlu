@@ -4,15 +4,28 @@ import { FiSearch } from "react-icons/fi";
 import { CiLock, CiUnlock } from "react-icons/ci";
 import { imageUrl } from "../../redux/api/baseApi";
 import moment from "moment";
-import { useGetUsersQuery } from "../../redux/features/usersApi";
+import {
+  useGetUsersQuery,
+  useLockUserMutation,
+} from "../../redux/features/usersApi";
+import toast from "react-hot-toast";
 
 const UserLists = () => {
   const limit = 10;
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
-  const [lock, setLock] = useState("");
-  const { data: userData, isLoading } = useGetUsersQuery({ page, limit, searchText });
+  const [lock, setLock] = useState(null);
+  const {
+    data: userData,
+    isLoading,
+    refetch,
+  } = useGetUsersQuery({
+    page,
+    limit,
+    searchText,
+  });
   const users = userData?.data?.data;
+  const [lockUser] = useLockUserMutation();
 
   const columns = [
     {
@@ -100,25 +113,10 @@ const UserLists = () => {
             paddingRight: 10,
           }}
         >
-          {/* <button
-            className="flex justify-center items-center rounded-md"
-            onClick={() => setValue(record)}
-            style={{
-              cursor: "pointer",
-              border: "none",
-              outline: "none",
-              backgroundColor: "#121212",
-              width: "40px",
-              height: "32px",
-            }}
-          >
-            <GoArrowUpRight size={26} className="text-secondary" />
-          </button> */}
-
           <div>
             <button
               className="flex justify-center items-center rounded-md"
-              onClick={() => setLock(record?._id)}
+              onClick={() => setLock(record)}
               style={{
                 cursor: "pointer",
                 border: "none",
@@ -141,16 +139,23 @@ const UserLists = () => {
   ];
 
   const handleDelete = async () => {
-    // try {
-    //   const res = await lockUser({ id: lock });
-    //   if (res?.data?.success) {
-    //     refetch();
-    //     setLock("");
-    //     toast.success(res?.data?.message);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const res = await lockUser({
+        userId: lock?._id,
+        status: lock?.status === "active" ? "block" : "active",
+      });
+      if (res?.data?.success) {
+        refetch();
+        setLock(null);
+        toast.success(
+          `User ${
+            lock?.status === "active" ? "blocked" : "activated"
+          } successfully`
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSearchChange = (e) => {
@@ -265,7 +270,8 @@ const UserLists = () => {
             Are you sure!
           </p>
           <p className="pt-4 pb-12 text-center">
-            Do you want to delete this content?
+            Do you want to {lock?.status === "active" ? "block" : "active"} this
+            user?
           </p>
           <button
             onClick={handleDelete}
