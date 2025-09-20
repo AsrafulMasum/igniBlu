@@ -1,214 +1,13 @@
 import { useState } from "react";
-import { ConfigProvider, Input, Modal, Select, Table } from "antd";
+import { ConfigProvider, Input, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
-import { CiLock, CiUnlock } from "react-icons/ci";
-import {
-  useGetUsersQuery,
-  useLockUserMutation,
-} from "../../redux/features/usersApi";
-import toast from "react-hot-toast";
 import moment from "moment";
-
-const data = [
-  {
-    key: 1,
-    deviceName: "Tracker Pro X1",
-    deviceId: "DEV-1001",
-    registeredDate: "2024-01-05",
-    currentVehicleNo: "DHA-1234",
-    previousVehicleNo: "DHA-5678",
-    status: "active",
-  },
-  {
-    key: 2,
-    deviceName: "Navigator Max",
-    deviceId: "DEV-1002",
-    registeredDate: "2024-01-10",
-    currentVehicleNo: "CTG-9876",
-    previousVehicleNo: "CTG-1122",
-    status: "inactive",
-  },
-  {
-    key: 3,
-    deviceName: "FleetGuard",
-    deviceId: "DEV-1003",
-    registeredDate: "2024-02-15",
-    currentVehicleNo: "RAJ-4433",
-    previousVehicleNo: "RAJ-3344",
-    status: "active",
-  },
-  {
-    key: 4,
-    deviceName: "TrackMate",
-    deviceId: "DEV-1004",
-    registeredDate: "2024-02-20",
-    currentVehicleNo: "SYL-8899",
-    previousVehicleNo: "SYL-7788",
-    status: "inactive",
-  },
-  {
-    key: 5,
-    deviceName: "PathFinder",
-    deviceId: "DEV-1005",
-    registeredDate: "2024-03-05",
-    currentVehicleNo: "BAR-6677",
-    previousVehicleNo: "BAR-5566",
-    status: "active",
-  },
-  {
-    key: 6,
-    deviceName: "SkyTrack",
-    deviceId: "DEV-1006",
-    registeredDate: "2024-03-12",
-    currentVehicleNo: "KHU-2233",
-    previousVehicleNo: "KHU-2211",
-    status: "inactive",
-  },
-  {
-    key: 7,
-    deviceName: "GeoLocator",
-    deviceId: "DEV-1007",
-    registeredDate: "2024-04-01",
-    currentVehicleNo: "DHA-4444",
-    previousVehicleNo: "DHA-3333",
-    status: "active",
-  },
-  {
-    key: 8,
-    deviceName: "SmartTrack",
-    deviceId: "DEV-1008",
-    registeredDate: "2024-04-10",
-    currentVehicleNo: "CTG-7777",
-    previousVehicleNo: "CTG-6666",
-    status: "inactive",
-  },
-  {
-    key: 9,
-    deviceName: "Guardian Pro",
-    deviceId: "DEV-1009",
-    registeredDate: "2024-04-25",
-    currentVehicleNo: "RAJ-9999",
-    previousVehicleNo: "RAJ-8888",
-    status: "active",
-  },
-  {
-    key: 10,
-    deviceName: "DriveSecure",
-    deviceId: "DEV-1010",
-    registeredDate: "2024-05-02",
-    currentVehicleNo: "SYL-2222",
-    previousVehicleNo: "SYL-1111",
-    status: "inactive",
-  },
-  {
-    key: 11,
-    deviceName: "TrackMaster",
-    deviceId: "DEV-1011",
-    registeredDate: "2024-05-10",
-    currentVehicleNo: "BAR-5555",
-    previousVehicleNo: "BAR-4444",
-    status: "active",
-  },
-  {
-    key: 12,
-    deviceName: "AutoLocator",
-    deviceId: "DEV-1012",
-    registeredDate: "2024-05-18",
-    currentVehicleNo: "KHU-8888",
-    previousVehicleNo: "KHU-7777",
-    status: "inactive",
-  },
-  {
-    key: 13,
-    deviceName: "FleetTracker",
-    deviceId: "DEV-1013",
-    registeredDate: "2024-06-01",
-    currentVehicleNo: "DHA-1212",
-    previousVehicleNo: "DHA-3434",
-    status: "active",
-  },
-  {
-    key: 14,
-    deviceName: "MapGuardian",
-    deviceId: "DEV-1014",
-    registeredDate: "2024-06-08",
-    currentVehicleNo: "CTG-7878",
-    previousVehicleNo: "CTG-6767",
-    status: "inactive",
-  },
-  {
-    key: 15,
-    deviceName: "RouteFinder",
-    deviceId: "DEV-1015",
-    registeredDate: "2024-06-20",
-    currentVehicleNo: "RAJ-5656",
-    previousVehicleNo: "RAJ-4545",
-    status: "active",
-  },
-  {
-    key: 16,
-    deviceName: "SpeedTrack",
-    deviceId: "DEV-1016",
-    registeredDate: "2024-07-02",
-    currentVehicleNo: "SYL-9898",
-    previousVehicleNo: "SYL-8787",
-    status: "inactive",
-  },
-  {
-    key: 17,
-    deviceName: "SecurePath",
-    deviceId: "DEV-1017",
-    registeredDate: "2024-07-10",
-    currentVehicleNo: "BAR-2323",
-    previousVehicleNo: "BAR-2121",
-    status: "active",
-  },
-  {
-    key: 18,
-    deviceName: "DriveGuard",
-    deviceId: "DEV-1018",
-    registeredDate: "2024-07-15",
-    currentVehicleNo: "KHU-9090",
-    previousVehicleNo: "KHU-8080",
-    status: "inactive",
-  },
-  {
-    key: 19,
-    deviceName: "Tracker Lite",
-    deviceId: "DEV-1019",
-    registeredDate: "2024-07-28",
-    currentVehicleNo: "DHA-6767",
-    previousVehicleNo: "DHA-5656",
-    status: "active",
-  },
-  {
-    key: 20,
-    deviceName: "PathSecure",
-    deviceId: "DEV-1020",
-    registeredDate: "2024-08-05",
-    currentVehicleNo: "CTG-4545",
-    previousVehicleNo: "CTG-3434",
-    status: "inactive",
-  },
-];
-
+import { useGetDevicesQuery } from "../../redux/features/devicesApi";
 
 const DeviceList = () => {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
-  const [lock, setLock] = useState("");
-  const [deviceStatus, setDeviceStatus] = useState("Device Status");
-
-  const deviceStatusOptions = [
-    { value: "Device Status", label: "Device Status" },
-    { value: "Active", label: "Active" },
-    { value: "Inactive", label: "Inactive" },
-  ];
-
-  const statusColorMap = {
-    active: { color: "#52C41A", bg: "#D9F2CD" },
-    inactive: { color: "#FF4D4F", bg: "#FFD8D7" },
-  };
+  const { data: devices, isLoading } = useGetDevicesQuery({ page, searchText });
 
   const columns = [
     {
@@ -221,14 +20,14 @@ const DeviceList = () => {
     },
     {
       title: "Device Name",
-      dataIndex: "deviceName",
-      key: "deviceName",
+      dataIndex: "DeviceName",
+      key: "DeviceName",
       render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
       title: "Device ID",
-      dataIndex: "deviceId",
-      key: "deviceId",
+      dataIndex: "DeviceId",
+      key: "DeviceId",
       render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
@@ -246,124 +45,16 @@ const DeviceList = () => {
       dataIndex: "currentVehicleNo",
       key: "currentVehicleNo",
       render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>{record?.currentVehicleNo}</span>
-      ),
-    },
-    {
-      title: "Previous Vehicle",
-      dataIndex: "previousVehicleNo",
-      key: "previousVehicleNo",
-      render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>{record?.previousVehicleNo}</span>
-      ),
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (status) => {
-        const currentStyle = statusColorMap[status] || {
-          color: "#595959",
-          bg: "#FAFAFA",
-        };
-
-        return (
-          <p
-            style={{
-              backgroundColor: currentStyle.bg,
-              color: currentStyle.color,
-              fontWeight: 500,
-              borderRadius: 6,
-              fontSize: 13,
-              width: 120,
-              height: 28,
-              lineHeight: "28px",
-              textAlign: "center",
-              margin: 0,
-              textTransform: "capitalize",
-            }}
-          >
-            {status}
-          </p>
-        );
-      },
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
-      render: (_, record) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-
-            paddingRight: 10,
-          }}
-        >
-          {/* <button
-            className="flex justify-center items-center rounded-md"
-            onClick={() => setValue(record)}
-            style={{
-              cursor: "pointer",
-              border: "none",
-              outline: "none",
-              backgroundColor: "#121212",
-              width: "40px",
-              height: "32px",
-            }}
-          >
-            <GoArrowUpRight size={26} className="text-secondary" />
-          </button> */}
-
-          <div>
-            <button
-              className="flex justify-center items-center rounded-md"
-              onClick={() => setLock(record?._id)}
-              style={{
-                cursor: "pointer",
-                border: "none",
-                outline: "none",
-                backgroundColor: "#121212",
-                width: "40px",
-                height: "32px",
-              }}
-            >
-              {record?.status === "active" ? (
-                <CiUnlock size={26} className="text-secondary" />
-              ) : (
-                <CiLock size={26} className="text-[#FF0000]" />
-              )}
-            </button>
-          </div>
-        </div>
+        <span style={{ color: "#FDFDFD" }}>
+          {record?.Make} {record?.Model}
+        </span>
       ),
     },
   ];
 
-  const handleDelete = async () => {
-    console.log("lock");
-    setLock("");
-    // try {
-    //   const res = await lockUser({ id: lock });
-    //   if (res?.data?.success) {
-    //     refetch();
-    //     setLock("");
-    //     toast.success(res?.data?.message);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
-  };
-
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
-  };
-
-  const handleDeviceStatus = (value) => {
-    setDeviceStatus(value);
   };
 
   return (
@@ -422,31 +113,6 @@ const DeviceList = () => {
                 />
               </ConfigProvider>
             </div>
-
-            <div>
-              <ConfigProvider
-                theme={{
-                  token: {
-                    colorPrimary: "#242424",
-                  },
-                  components: {
-                    Select: {
-                      optionSelectedBg: "#0F78FF",
-                    },
-                  },
-                }}
-              >
-                <Select
-                  value={deviceStatus}
-                  onChange={handleDeviceStatus}
-                  style={{
-                    width: 150,
-                    height: 40,
-                  }}
-                  options={deviceStatusOptions}
-                />
-              </ConfigProvider>
-            </div>
           </div>
         </div>
 
@@ -473,43 +139,18 @@ const DeviceList = () => {
               size="small"
               columns={columns}
               rowKey="_id"
-              dataSource={data}
-              //   loading={isLoading}
+              dataSource={devices?.data}
+              loading={isLoading}
               pagination={{
-                total: 20,
+                total: devices?.pagination?.total,
                 current: page,
-                pageSize: 12,
+                pageSize: 10,
                 onChange: (page) => setPage(page),
               }}
             />
           </ConfigProvider>
         </div>
       </div>
-
-      {/* <UserDetailsModal value={value} setValue={setValue} /> */}
-
-      <Modal
-        centered
-        open={lock}
-        onCancel={() => setLock(null)}
-        width={400}
-        footer={false}
-      >
-        <div className="p-6 text-center">
-          <p className="text-[#D93D04] text-center font-semibold">
-            Are you sure!
-          </p>
-          <p className="pt-4 pb-12 text-center">
-            Do you want to delete this content?
-          </p>
-          <button
-            onClick={handleDelete}
-            className="bg-[#0F78FF] py-2 px-5 text-white rounded-md"
-          >
-            Confirm
-          </button>
-        </div>
-      </Modal>
     </div>
   );
 };

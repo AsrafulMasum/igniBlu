@@ -39,7 +39,7 @@ function DashboardHome() {
   const statistics = [
     {
       title: "Total Devices",
-      amount: "22K",
+      amount: statisticsData?.data?.totalDevices,
       icon: <GiMicrochip className="text-2xl text-[#EEEEEE]" />,
       color: "bg-[#0F78FF]",
     },
