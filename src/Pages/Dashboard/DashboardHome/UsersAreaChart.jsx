@@ -17,19 +17,19 @@ const CustomLegend = () => {
         <div className="w-3 h-3 bg-[#0F78FF] rounded-sm " />
         Devices
       </div>
-      <div className="flex items-center gap-1 whitespace-nowrap">
+      {/* <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#52C41A] rounded-sm " />
         Active Devices
       </div>
       <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#FF4D4F] rounded-sm " />
         Inactive Devices
-      </div>
+      </div> */}
     </div>
   );
 };
 
-const UsersAreaChart = ({ setUserYear, userStats }) => {
+const UsersAreaChart = ({ setDeviceYear, deviceStats }) => {
   return (
     <div
       style={{
@@ -63,7 +63,7 @@ const UsersAreaChart = ({ setUserYear, userStats }) => {
               picker="year"
               suffixIcon={<FaChevronDown className="text-gray-500 text-sm" />}
               onChange={(_, dateString) => {
-                setUserYear(dateString);
+                setDeviceYear(dateString);
               }}
             />
           </ConfigProvider>
@@ -71,20 +71,20 @@ const UsersAreaChart = ({ setUserYear, userStats }) => {
       </div>
 
       <ResponsiveContainer width={"100%"} height={285}>
-        <AreaChart data={userStats} barGap={100}>
+        <AreaChart data={deviceStats} barGap={100}>
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#0F78FF" stopOpacity={1} />
               <stop offset="100%" stopColor="#0F78FF" stopOpacity={0} />
             </linearGradient>
-            <linearGradient id="colorActive" x1="0" y1="0" x2="0" y2="1">
+            {/* <linearGradient id="colorActive" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#52C41A" stopOpacity={1} />
               <stop offset="100%" stopColor="#52C41A" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="colorInactive" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#FF4D4F" stopOpacity={1} />
               <stop offset="100%" stopColor="#FF4D4F" stopOpacity={0} />
-            </linearGradient>
+            </linearGradient> */}
           </defs>
           <CartesianGrid horizontal vertical={false} />
           <XAxis
@@ -106,12 +106,12 @@ const UsersAreaChart = ({ setUserYear, userStats }) => {
           <Area
             connectNulls
             type="monotone"
-            dataKey="totalDevice"
+            dataKey="device"
             stroke="#0F78FF"
             fill="url(#colorUv)"
             name="Total Device"
           />
-          <Area
+          {/* <Area
             connectNulls
             type="monotone"
             dataKey="activeDevice"
@@ -126,7 +126,7 @@ const UsersAreaChart = ({ setUserYear, userStats }) => {
             stroke="#FF4D4F"
             fill="url(#colorInactive)"
             name="Inactive Devices"
-          />
+          /> */}
         </AreaChart>
       </ResponsiveContainer>
     </div>

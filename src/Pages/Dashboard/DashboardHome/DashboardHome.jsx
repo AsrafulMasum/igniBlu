@@ -4,6 +4,7 @@ import { useState } from "react";
 import { PiCarProfile, PiUser } from "react-icons/pi";
 import { GiMicrochip } from "react-icons/gi";
 import {
+  useDeviceStatisticsQuery,
   useStatisticsQuery,
   useUserStatisticsQuery,
 } from "../../../redux/features/statisticsApi";
@@ -11,30 +12,13 @@ import { RxActivityLog } from "react-icons/rx";
 
 function DashboardHome() {
   const [userYear, setUserYear] = useState("");
-  const [sellerYear, setSellerYear] = useState("");
+  const [deviceYear, setDeviceYear] = useState("");
   const { data: statisticsData } = useStatisticsQuery();
   const { data: userStatisticsData } = useUserStatisticsQuery(userYear);
   const usersData = userStatisticsData?.data;
 
-  const deviceMonthlyData = [
-    { month: "Jan", totalDevice: 50, activeDevice: 40, inactiveDevice: 10 },
-    { month: "Feb", totalDevice: 60, activeDevice: 55, inactiveDevice: 5 },
-    { month: "Mar", totalDevice: 45, activeDevice: 35, inactiveDevice: 10 },
-    { month: "Apr", totalDevice: 70, activeDevice: 65, inactiveDevice: 5 },
-    { month: "May", totalDevice: 55, activeDevice: 50, inactiveDevice: 5 },
-    { month: "Jun", totalDevice: 80, activeDevice: 70, inactiveDevice: 10 },
-    { month: "Jul", totalDevice: 200, activeDevice: 180, inactiveDevice: 20 },
-    {
-      month: "Aug",
-      totalDevice: 2200,
-      activeDevice: 1500,
-      inactiveDevice: 700,
-    },
-    { month: "Sep", totalDevice: 75, activeDevice: 65, inactiveDevice: 10 },
-    { month: "Oct", totalDevice: 60, activeDevice: 50, inactiveDevice: 10 },
-    { month: "Nov", totalDevice: 50, activeDevice: 45, inactiveDevice: 5 },
-    { month: "Dec", totalDevice: 65, activeDevice: 60, inactiveDevice: 5 },
-  ];
+  const { data: deviceStatisticsData } = useDeviceStatisticsQuery(deviceYear);
+  const deviceData = deviceStatisticsData?.data;
 
   const statistics = [
     {
@@ -95,16 +79,13 @@ function DashboardHome() {
 
       <div className="bg-[#242424] rounded-lg p-4">
         <UsersAreaChart
-          setUserYear={setUserYear}
-          userStats={deviceMonthlyData}
+          setDeviceYear={setDeviceYear}
+          deviceStats={deviceData}
         />
       </div>
 
       <div className="grid grid-cols-1 gap-x-2 mt-2">
-        <SellingLineChart
-          setUserYear={setUserYear}
-          sellingStats={usersData}
-        />
+        <SellingLineChart setUserYear={setUserYear} sellingStats={usersData} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ConfigProvider, Input, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
 import moment from "moment";
-import { useGetDevicesQuery } from "../../redux/features/devicesApi";
+import { useGetDevicesQuery } from "../../redux/features/assetsApi";
 
 const DeviceList = () => {
   const [page, setPage] = useState(1);

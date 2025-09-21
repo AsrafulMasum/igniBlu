@@ -17,7 +17,6 @@ import Support from "./Pages/Dashboard/Support";
 import DeviceList from "./Pages/Dashboard/DeviceList";
 import VehicleList from "./Pages/Dashboard/VehicleList";
 import DriverList from "./Pages/Dashboard/DriverList";
-import ActivityList from "./Pages/Dashboard/ActivityList";
 import GarageHistory from "./Pages/Dashboard/GarageHistory";
 
 function App() {
@@ -39,7 +38,6 @@ function App() {
             <Route path="/user-lists" element={<UserLists />} />
             <Route path="/vehicle-lists" element={<VehicleList />} />
             <Route path="/driver-list" element={<DriverList />} />
-            <Route path="/activity-list" element={<ActivityList />} />
             <Route path="/garage-history" element={<GarageHistory />} />
             <Route path="/support" element={<Support />} />
 

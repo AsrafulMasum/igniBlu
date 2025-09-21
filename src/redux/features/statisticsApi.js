@@ -19,7 +19,20 @@ const statisticsApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    deviceStatistics: builder.query({
+      query: (deviceYear) => {
+        return {
+          url: `/service/yearly-device-stats?year=${deviceYear}`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useStatisticsQuery, useUserStatisticsQuery } = statisticsApi;
+export const {
+  useStatisticsQuery,
+  useUserStatisticsQuery,
+  useDeviceStatisticsQuery,
+} = statisticsApi;
