@@ -11,6 +11,15 @@ const statisticsApi = baseApi.injectEndpoints({
       },
     }),
 
+    distanceStatistics: builder.query({
+      query: () => {
+        return {
+          url: `/service/miles`,
+          method: "GET",
+        };
+      },
+    }),
+
     userStatistics: builder.query({
       query: (userYear) => {
         return {
@@ -33,6 +42,7 @@ const statisticsApi = baseApi.injectEndpoints({
 
 export const {
   useStatisticsQuery,
+  useDistanceStatisticsQuery,
   useUserStatisticsQuery,
   useDeviceStatisticsQuery,
 } = statisticsApi;

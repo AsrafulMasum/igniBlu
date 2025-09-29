@@ -2,9 +2,10 @@ import UsersAreaChart from "./UsersAreaChart";
 import SellingLineChart from "./SellingLineChart";
 import { useState } from "react";
 import { PiCarProfile, PiUser } from "react-icons/pi";
-import { GiMicrochip } from "react-icons/gi";
+import { GiMicrochip, GiPathDistance } from "react-icons/gi";
 import {
   useDeviceStatisticsQuery,
+  useDistanceStatisticsQuery,
   useStatisticsQuery,
   useUserStatisticsQuery,
 } from "../../../redux/features/statisticsApi";
@@ -19,6 +20,8 @@ function DashboardHome() {
 
   const { data: deviceStatisticsData } = useDeviceStatisticsQuery(deviceYear);
   const deviceData = deviceStatisticsData?.data;
+
+  const { data: distanceData } = useDistanceStatisticsQuery();
 
   const statistics = [
     {
@@ -37,6 +40,12 @@ function DashboardHome() {
       title: "Total Drivers",
       amount: statisticsData?.data?.totalDrivers,
       icon: <PiUser className="text-2xl text-[#EEEEEE]" />,
+      color: "bg-[#FF7700]",
+    },
+    {
+      title: "Total Distance",
+      amount: `${distanceData?.data?.totalMiles} Miles`,
+      icon: <GiPathDistance className="text-2xl text-[#EEEEEE]" />,
       color: "bg-[#A44D00]",
     },
     {
@@ -44,13 +53,13 @@ function DashboardHome() {
       amount: statisticsData?.data?.IN_GARAGE,
       secondAmount: statisticsData?.data?.IN_SERVICE,
       icon: <RxActivityLog className="text-2xl text-[#EEEEEE]" />,
-      color: "bg-[#FF7700]",
+      color: "bg-[#52C41A]",
     },
   ];
 
   return (
     <div className="flex flex-col bg-[#121212]">
-      <div className="grid grid-cols-4 gap-2 max-h-[150px] mb-2">
+      <div className="grid grid-cols-5 gap-2 max-h-[150px] mb-2">
         {statistics.map(({ title, amount, icon, color, secondAmount }) => (
           <div key={title} className="rounded-lg py-4 px-5 gap-4 bg-green">
             <div className="flex justify-start items-start gap-4 mb-4">

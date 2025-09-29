@@ -89,6 +89,12 @@ const VehicleList = () => {
       render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
     },
     {
+      title: "Total Distance",
+      dataIndex: "totalMiles",
+      key: "totalMiles",
+      render: (text) => <span style={{ color: "#FDFDFD" }}>{text} Miles</span>,
+    },
+    {
       title: "Assign Driver",
       dataIndex: "assignDriver",
       key: "assignDriver",

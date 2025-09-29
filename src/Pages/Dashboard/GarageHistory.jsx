@@ -333,8 +333,7 @@ const GarageHistory = () => {
                 outline: "none",
                 padding: "10px 20px",
               }}
-              // value={replyLoading ? "Sending..." : "Save & change"}
-              value={"Save & change"}
+              value={updateDistanceLoading ? "Sending..." : "Save & change"}
               type="submit"
             />
           </form>
