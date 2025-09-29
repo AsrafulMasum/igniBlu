@@ -10,8 +10,17 @@ const trackingApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    updateDistance: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `/service/miles/${payload?.id}`,
+          method: "PATCH",
+          body: payload?.body,
+        };
+      },
+    }),
   }),
 });
-export const {
-  useGetGarageHistoryQuery,
-} = trackingApi;
+export const { useGetGarageHistoryQuery, useUpdateDistanceMutation } =
+  trackingApi;

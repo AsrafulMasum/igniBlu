@@ -1,236 +1,20 @@
 import { useState } from "react";
-import { ConfigProvider, Input, Table } from "antd";
+import { ConfigProvider, Input, Modal, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
 import moment from "moment";
-import { useGetGarageHistoryQuery } from "../../redux/features/trackingApi";
-
-const data = [
-  {
-    key: 1,
-    carName: "Toyota Corolla",
-    vinNumber: "VIN-10001",
-    driverName: "John Doe",
-    date: "2025-08-01T08:00:00",
-    startTime: "2025-08-01T08:00:00",
-    endTime: "2025-08-01T10:30:00",
-    tripDuration: "2h 30m",
-    status: "complete",
-  },
-  {
-    key: 2,
-    carName: "Honda Civic",
-    vinNumber: "VIN-10002",
-    driverName: "Alice Smith",
-    date: "2025-08-02T09:15:00",
-    startTime: "2025-08-02T09:15:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 3,
-    carName: "Ford Focus",
-    vinNumber: "VIN-10003",
-    driverName: "Robert Brown",
-    date: "2025-08-03T07:45:00",
-    startTime: "2025-08-03T07:45:00",
-    endTime: "2025-08-03T11:00:00",
-    tripDuration: "3h 15m",
-    status: "complete",
-  },
-  {
-    key: 4,
-    carName: "Hyundai Elantra",
-    vinNumber: "VIN-10004",
-    driverName: "Emily Johnson",
-    date: "2025-08-04T10:00:00",
-    startTime: "2025-08-04T10:00:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 5,
-    carName: "Chevrolet Malibu",
-    vinNumber: "VIN-10005",
-    driverName: "Michael Davis",
-    date: "2025-08-05T06:30:00",
-    startTime: "2025-08-05T06:30:00",
-    endTime: "2025-08-05T10:35:00",
-    tripDuration: "4h 5m",
-    status: "complete",
-  },
-  {
-    key: 6,
-    carName: "Nissan Altima",
-    vinNumber: "VIN-10006",
-    driverName: "Sophia Wilson",
-    date: "2025-08-06T11:00:00",
-    startTime: "2025-08-06T11:00:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 7,
-    carName: "Kia Optima",
-    vinNumber: "VIN-10007",
-    driverName: "James Anderson",
-    date: "2025-08-07T07:15:00",
-    startTime: "2025-08-07T07:15:00",
-    endTime: "2025-08-07T10:55:00",
-    tripDuration: "3h 40m",
-    status: "complete",
-  },
-  {
-    key: 8,
-    carName: "Mazda 6",
-    vinNumber: "VIN-10008",
-    driverName: "Olivia Martinez",
-    date: "2025-08-08T09:45:00",
-    startTime: "2025-08-08T09:45:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 9,
-    carName: "Volkswagen Passat",
-    vinNumber: "VIN-10009",
-    driverName: "William Taylor",
-    date: "2025-08-09T06:00:00",
-    startTime: "2025-08-09T06:00:00",
-    endTime: "2025-08-09T11:20:00",
-    tripDuration: "5h 20m",
-    status: "complete",
-  },
-  {
-    key: 10,
-    carName: "Subaru Legacy",
-    vinNumber: "VIN-10010",
-    driverName: "Isabella Thomas",
-    date: "2025-08-10T10:30:00",
-    startTime: "2025-08-10T10:30:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 11,
-    carName: "BMW 3 Series",
-    vinNumber: "VIN-10011",
-    driverName: "Benjamin Lee",
-    date: "2025-08-11T08:20:00",
-    startTime: "2025-08-11T08:20:00",
-    endTime: "2025-08-11T09:55:00",
-    tripDuration: "1h 35m",
-    status: "complete",
-  },
-  {
-    key: 12,
-    carName: "Mercedes C-Class",
-    vinNumber: "VIN-10012",
-    driverName: "Mia White",
-    date: "2025-08-12T09:50:00",
-    startTime: "2025-08-12T09:50:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 13,
-    carName: "Audi A4",
-    vinNumber: "VIN-10013",
-    driverName: "Daniel Harris",
-    date: "2025-08-13T07:10:00",
-    startTime: "2025-08-13T07:10:00",
-    endTime: "2025-08-13T10:35:00",
-    tripDuration: "3h 25m",
-    status: "complete",
-  },
-  {
-    key: 14,
-    carName: "Lexus ES",
-    vinNumber: "VIN-10014",
-    driverName: "Charlotte Clark",
-    date: "2025-08-14T11:20:00",
-    startTime: "2025-08-14T11:20:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 15,
-    carName: "Tesla Model 3",
-    vinNumber: "VIN-10015",
-    driverName: "Matthew Lewis",
-    date: "2025-08-15T06:10:00",
-    startTime: "2025-08-15T06:10:00",
-    endTime: "2025-08-15T12:00:00",
-    tripDuration: "5h 50m",
-    status: "complete",
-  },
-  {
-    key: 16,
-    carName: "Volvo S60",
-    vinNumber: "VIN-10016",
-    driverName: "Amelia Walker",
-    date: "2025-08-16T10:05:00",
-    startTime: "2025-08-16T10:05:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 17,
-    carName: "Jaguar XE",
-    vinNumber: "VIN-10017",
-    driverName: "Henry Hall",
-    date: "2025-08-17T07:40:00",
-    startTime: "2025-08-17T07:40:00",
-    endTime: "2025-08-17T12:10:00",
-    tripDuration: "4h 30m",
-    status: "complete",
-  },
-  {
-    key: 18,
-    carName: "Acura TLX",
-    vinNumber: "VIN-10018",
-    driverName: "Evelyn Allen",
-    date: "2025-08-18T09:25:00",
-    startTime: "2025-08-18T09:25:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-  {
-    key: 19,
-    carName: "Infiniti Q50",
-    vinNumber: "VIN-10019",
-    driverName: "Alexander Young",
-    date: "2025-08-19T08:50:00",
-    startTime: "2025-08-19T08:50:00",
-    endTime: "2025-08-19T11:55:00",
-    tripDuration: "3h 5m",
-    status: "complete",
-  },
-  {
-    key: 20,
-    carName: "Genesis G70",
-    vinNumber: "VIN-10020",
-    driverName: "Harper King",
-    date: "2025-08-20T10:40:00",
-    startTime: "2025-08-20T10:40:00",
-    endTime: null,
-    tripDuration: "-",
-    status: "inProgress",
-  },
-];
+import {
+  useGetGarageHistoryQuery,
+  useUpdateDistanceMutation,
+} from "../../redux/features/trackingApi";
+import { GoPlus } from "react-icons/go";
+import toast from "react-hot-toast";
 
 const GarageHistory = () => {
   const limit = 10;
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
+  const [vehicle, setVehicle] = useState(null);
+
   const { data: garageHistoryData, isLoading } = useGetGarageHistoryQuery({
     page,
     limit,
@@ -238,9 +22,33 @@ const GarageHistory = () => {
   });
   const garageHistory = garageHistoryData?.data;
 
+  const [updateDistance, { isLoading: updateDistanceLoading }] =
+    useUpdateDistanceMutation();
+
   const statusColorMap = {
-    COMPLETED: { color: "#52C41A", bg: "#D9F2CD" },
-    CONFIRMED: { color: "#F4891C", bg: "#FFE8CC" },
+    IN_SERVICE: { color: "#52C41A", bg: "#D9F2CD" },
+    IN_GARAGE: { color: "#F4891C", bg: "#FFE8CC" },
+  };
+
+  const handleAddDistance = async (e) => {
+    e.preventDefault();
+    const miles = e.target.distance.value;
+    const payload = {
+      id: vehicle?._id,
+      body: { miles },
+    };
+
+    try {
+      const res = await updateDistance(payload).unwrap();
+      if (res?.data) {
+        toast.success("Distance Updated Successfully.");
+        e.target.reset();
+        setVehicle(null);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to reply. Please try again.");
+    }
   };
 
   const columns = [
@@ -322,8 +130,8 @@ const GarageHistory = () => {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status) => {
-        const currentStyle = statusColorMap[status] || {
+      render: (_, record) => {
+        const currentStyle = statusColorMap[record?.serviceId?.status] || {
           color: "#595959",
           bg: "#FAFAFA",
         };
@@ -344,10 +152,43 @@ const GarageHistory = () => {
               textTransform: "uppercase",
             }}
           >
-            {status === "CONFIRMED" ? "On Trip" : status}
+            {record?.serviceId?.status}
           </p>
         );
       },
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (_, record) => (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+
+            paddingRight: 10,
+          }}
+        >
+          <div>
+            <button
+              className="flex justify-center items-center rounded-md"
+              onClick={() => setVehicle(record?.serviceId)}
+              style={{
+                cursor: "pointer",
+                border: "none",
+                outline: "none",
+                backgroundColor: "#121212",
+                width: "40px",
+                height: "32px",
+              }}
+            >
+              <GoPlus size={26} className="text-secondary" />
+            </button>
+          </div>
+        </div>
+      ),
     },
   ];
 
@@ -450,6 +291,55 @@ const GarageHistory = () => {
           </ConfigProvider>
         </div>
       </div>
+      <Modal
+        centered
+        open={vehicle}
+        onCancel={() => setVehicle(null)}
+        width={500}
+        footer={false}
+      >
+        <div className="p-6">
+          <h1 className="text-[20px] font-medium mb-3">Add Distance</h1>
+          <p className="text-lg font-medium mb-5">
+            {vehicle?.Make} {vehicle?.Model}
+          </p>
+          <form onSubmit={handleAddDistance}>
+            <div style={{ marginBottom: "16px" }}>
+              <input
+                type="number"
+                placeholder="Enter distance in miles"
+                style={{
+                  border: "1px solid #E0E4EC",
+                  padding: "10px",
+                  height: "60px",
+                  background: "white",
+                  borderRadius: "8px",
+                  outline: "none",
+                  width: "100%",
+                  resize: "none",
+                }}
+                name="distance"
+              />
+            </div>
+            <input
+              className="cursor-pointer"
+              style={{
+                width: "100%",
+                border: "none",
+                height: "44px",
+                background: "#0F78FF",
+                color: "white",
+                borderRadius: "8px",
+                outline: "none",
+                padding: "10px 20px",
+              }}
+              // value={replyLoading ? "Sending..." : "Save & change"}
+              value={"Save & change"}
+              type="submit"
+            />
+          </form>
+        </div>
+      </Modal>
     </div>
   );
 };
