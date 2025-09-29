@@ -4,6 +4,7 @@ export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://10.10.7.45:3000/api/v1",
+    // baseUrl: "http://206.162.244.155:3000/api/v1",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token && token !== "undefined") {
@@ -17,3 +18,4 @@ export const baseApi = createApi({
 });
 
 export const imageUrl = "http://10.10.7.45:3000";
+// export const imageUrl = "http://206.162.244.155:3000";

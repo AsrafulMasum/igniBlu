@@ -1,6 +1,4 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import React from "react";
-import { useNavigate } from "react-router";
 import logo from "../../assets/logo.png";
 import { useLoginMutation } from "../../redux/features/authApi";
 import toast from "react-hot-toast";
@@ -15,10 +13,12 @@ const Login = () => {
         password: values.password,
       }).unwrap();
 
-      if(res?.success) {
+      if (res?.success) {
         localStorage.setItem("token", JSON.stringify(res?.data?.accessToken));
         toast.success("Login successful!");
-        navigate("/");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 500);
       } else {
         toast.error("Login failed.", res?.message || "Please try again.");
       }
@@ -27,8 +27,6 @@ const Login = () => {
       toast.error("Login failed. Check your credentials.");
     }
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className="flex justify-center items-center w-screen h-screen bg-[#000000]">
